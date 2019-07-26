@@ -2,6 +2,8 @@
 
 Welcome to my world. This is a collection of vim/nvim, tmux, and zsh configurations. 
 
+![A screenshot of the dotfiles setup](screenshot.png)
+
 ## VIM
 vim and neovim should just work once the correct plugins are installed. To install the plugins, you will need to open Neovim in the following way:
 
