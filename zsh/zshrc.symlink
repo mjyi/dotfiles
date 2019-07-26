@@ -1,0 +1,102 @@
+export DOTFILES=$HOME/.dotfiles
+export ZSH=$DOTFILES/zsh
+
+# display how long all tasks over 10 seconds take
+export REPORTTIME=10
+
+# define the code directory
+# This is where my code exists and where I want the `c` autocomplete to work from exclusively
+if [[ -d ~/Code ]]; then
+    export CODE_DIR=~/Code
+fi
+
+# source all .zsh files inside of the zsh/ directory
+source "$ZSH/utils.zsh"
+# source "$ZSH/prompt.zsh"
+source "$ZSH/aliases.zsh"
+# source "$ZSH/colors.zsh"
+source "$ZSH/completion.zsh"
+source "$ZSH/config.zsh"
+source "$ZSH/functions.zsh"
+source "$ZSH/git.zsh"
+source "$ZSH/tmux.zsh"
+source "$ZSH/z.zsh"
+source "$ZSH/env.zsh"
+
+
+# initialize autocomplete
+autoload -U compinit add-zsh-hook
+compinit
+
+for config ($ZSH/**/*completion.sh) source $config
+
+export EDITOR='nvim'
+export GIT_EDITOR='nvim'
+
+export PATH=/usr/local/bin:$PATH
+
+# add /usr/local/sbin
+if [[ -d /usr/local/sbin ]]; then
+    export PATH=/usr/local/sbin:$PATH
+fi
+
+# add brew-installed grep
+export PATH="/usr/local/opt/grep/libexec/gnubin:$PATH"
+
+# adding path directory for custom scripts
+export PATH=$DOTFILES/bin:$PATH
+
+# check for custom bin directory and add to path
+if [[ -d ~/bin ]]; then
+    export PATH=~/bin:$PATH
+fi
+
+# add a config file for ripgrep
+export RIPGREP_CONFIG_PATH="$HOME/.rgrc"
+
+export TERM="xterm-256color"
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow -g "!{.git,node_modules}/*" 2> /dev/null'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+
+# alias git to hub
+if type hub > /dev/null 2>&1; then
+    eval "$(hub alias -s)"
+fi
+
+# move to next word with ctrl-F
+bindkey -M viins "^F" vi-forward-word
+# Move to end of line with ctrl-E
+bindkey -M viins "^E" vi-add-eol
+
+# add color to man pages
+export MANROFFOPT='-c'
+export LESS_TERMCAP_mb=$(tput bold; tput setaf 2)
+export LESS_TERMCAP_md=$(tput bold; tput setaf 6)
+export LESS_TERMCAP_me=$(tput sgr0)
+export LESS_TERMCAP_so=$(tput bold; tput setaf 3; tput setab 4)
+export LESS_TERMCAP_se=$(tput rmso; tput sgr0)
+export LESS_TERMCAP_us=$(tput smul; tput bold; tput setaf 7)
+export LESS_TERMCAP_ue=$(tput rmul; tput sgr0)
+export LESS_TERMCAP_mr=$(tput rev)
+export LESS_TERMCAP_mh=$(tput dim)
+
+# add shellcheck config
+# For a full list of errors, refer to
+# https://github.com/koalaman/shellcheck/wiki
+#
+# export SHELLCHECK_OPTS=""
+
+### Added by Zplugin's installer
+source ~/.zplugin/bin/zplugin.zsh
+autoload -Uz _zplugin
+(( ${+_comps} )) && _comps[zplugin]=_zplugin
+zplugin light romkatv/powerlevel10k
+zplugin light zdharma/fast-syntax-highlighting
+zplugin light zsh-users/zsh-autosuggestions
+zplugin ice lucid wait"1"; zplugin light peterhurford/git-it-on.zsh
+zplugin ice lucid wait"0" blockf; zplugin light zsh-users/zsh-completions
+# zplugin snippet https://github.com/sainnhe/vim-color-forest-night/blob/master/zsh/.zsh-pure-power
+source "$ZSH/zsh-theme"
+### End of Zplugin's installer chunk
