@@ -99,4 +99,7 @@ zplugin ice lucid wait"1"; zplugin light peterhurford/git-it-on.zsh
 zplugin ice lucid wait"0" blockf; zplugin light zsh-users/zsh-completions
 # zplugin snippet https://github.com/sainnhe/vim-color-forest-night/blob/master/zsh/.zsh-pure-power
 source "$ZSH/zsh-theme"
+
+eval "$(starship init zsh)"
+
 ### End of Zplugin's installer chunk

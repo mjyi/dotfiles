@@ -1,4 +1,5 @@
 # git aliases
+alias git='hub'
 alias gs='git s'
 alias glog="git l"
 

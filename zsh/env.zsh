@@ -9,7 +9,6 @@ export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 # Set the GOPROXY environment variable
 export GOPROXY=https://goproxy.io
 
-
 # MonkeyDev path
 export MonkeyDevDeviceIP=
 export PATH=/opt/MonkeyDev/bin:$PATH
@@ -19,32 +18,31 @@ export MonkeyDevPath=/opt/MonkeyDev
 export THEOS=/opt/theos 
 export PATH=/opt/theos/bin/:$PATH
 
+# mysql@5.7
+export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
 
 # Flutter
 export PATH="/Users/mervin/development/flutter/bin:$PATH"
 
 # NVM
-export NVM_DIR="/Users/mervin/.nvm"
+# export NVM_DIR="/Users/mervin/.nvm"
 #[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
-nvm() { . "$NVM_DIR/nvm.sh" ; nvm $@ ; }
-export PATH=/Users/mervin/.nvm/versions/node/v10.14.1/bin/:$PATH
+# nvm() { . "$NVM_DIR/nvm.sh" ; nvm $@ ; }
+# export PATH=/Users/mervin/.nvm/versions/node/v10.14.1/bin/:$PATH
 ## 启动时通过更改node 版本号加载，减少启动时间
 
 
 # Rust
-export RUSTUP_DIST_SERVER="https://mirrors.ustc.edu.cn/rust-static"
-export RUSTUP_UPDATE_ROOT="https://mirrors.ustc.edu.cn/rust-static/rustup"
 source $HOME/.cargo/env
-
-# Cargo
-alias cr='cargo run'
-alias cf='cargo fmt'
 
 # Rbenv
 eval "$(rbenv init -)"
 
+# Haskell
+source $HOME/.ghcup/env
+
 # Proxy
-alias hproxy="export http_proxy=http://127.0.0.1:7777;export https_proxy=http://127.0.0.1:7777"
+alias hproxy="export http_proxy=http://127.0.0.1:1087;export https_proxy=http://127.0.0.1:1087"
 alias unhproxy="unset http_proxy;unset https_proxy"
 
 alias cat='bat -p'

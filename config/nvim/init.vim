@@ -378,10 +378,10 @@ augroup END
 " General Functionality {{{
 " better terminal integration
 " substitute, search, and abbreviate multiple variants of a word
-Plug 'tpope/vim-abolish'
+" Plug 'tpope/vim-abolish'
 
 " search inside files using ripgrep. This plugin provides an Ack command.
-Plug 'wincent/ferret'
+" Plug 'wincent/ferret'
 
 " insert or delete brackets, parens, quotes in pair
 Plug 'jiangmiao/auto-pairs'
@@ -604,38 +604,6 @@ Plug 'junegunn/gv.vim'
 Plug 'sodapopcan/vim-twiggy'
 " }}}
 
-" ALE {{{
-Plug 'w0rp/ale' " Asynchonous linting engine
-let g:ale_set_highlights = 1
-let g:ale_change_sign_column_color = 0
-let g:ale_sign_column_always = 1
-let g:ale_fix_on_save = 1
-" let g:ale_lint_delay = 1000
-let g:ale_lint_on_text_changed = 'always'
-let g:ale_sign_error = '✖'
-let g:ale_sign_warning = '⚠'
-let g:ale_echo_msg_error_str = '✖'
-let g:ale_echo_msg_warning_str = '⚠'
-let g:ale_echo_msg_format = '%severity% %s% [%linter%% code%]'
-" let g:ale_completion_enabled = 1
-
-let g:ale_linters = {
-            \   'javascript': ['eslint'],
-            \   'typescript': ['tsserver', 'tslint'],
-            \   'typescript.tsx': ['tsserver', 'tslint'],
-            \   'html': [],
-            \   'css': []
-            \}
-let g:ale_fixers = {}
-let g:ale_fixers['javascript'] = ['prettier']
-let g:ale_fixers['typescript'] = ['prettier', 'tslint']
-let g:ale_fixers['json'] = ['prettier']
-let g:ale_fixers['css'] = ['prettier']
-let g:ale_javascript_prettier_use_local_config = 1
-let g:ale_fix_on_save = 0
-nmap <silent><leader>af :ALEFix<cr>
-" }}}
-
 " coc.nvim {{{
 Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install() }}
 
@@ -741,8 +709,8 @@ Plug 'haya14busa/incsearch-fuzzy.vim'
 Plug 'haya14busa/incsearch-easymotion.vim'
 
 
-nmap s <Plug>(easymotion-s2)
-nmap t <Plug>(easymotion-t2)
+" nmap s <Plug>(easymotion-s2)
+" nmap t <Plug>(easymotion-t2)
 
 map  / <Plug>(easymotion-sn)
 omap / <Plug>(easymotion-tn)
@@ -802,7 +770,7 @@ Plug 'othree/html5.vim', { 'for': 'html' }
 Plug 'mustache/vim-mustache-handlebars'
 
 
-Plug 'RRethy/vim-hexokinase'
+Plug 'RRethy/vim-hexokinase', { 'do': 'make hexokinase' }
 let g:Hexokinase_highlighters = ['virtual']
 let g:Hexokinase_refreshEvents = ['BufWritePost']
 let g:Hexokinase_ftAutoload = ['css']
@@ -810,18 +778,17 @@ let g:Hexokinase_ftAutoload = ['css']
 let g:Hexokinase_virtualText = '■'
 " }}}
 
-
 Plug 'sheerun/vim-polyglot'
 
-" markdown {{{
-" Plug 'tpope/vim-markdown', { 'for': 'markdown' }
-" let g:markdown_fenced_languages = [ 'tsx=typescript.tsx' ]
-" Open markdown files in Marked.app - mapped to <leader>m
-" Plug 'itspriddle/vim-marked', { 'for': 'markdown', 'on': 'MarkedOpen' }
-" nmap <leader>m :MarkedOpen!<cr>
-" nmap <leader>mq :MarkedQuit<cr>
-" nmap <leader>* *<c-o>:%s///gn<cr>
-" }}}
+Plug 'Chiel92/vim-autoformat'
+
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
+
+Plug 'vim-pandoc/vim-pandoc'
+Plug 'vim-pandoc/vim-pandoc-syntax'
+augroup pandoc_syntax
+    au! BufNewFile,BufFilePre,BufRead *.md set filetype=markdown.pandoc
+augroup END
 
 " JSON {{{
 " Plug 'elzr/vim-json', { 'for': 'json' }
@@ -833,6 +800,14 @@ let g:go_highlight_function_calls = 1
 let g:go_highlight_types = 1
 let g:go_highlight_build_constraints = 1
 let g:go_highlight_variable_declarations = 1
+let g:go_highlight_extra_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_structs = 1
+let g:go_fmt_command = "goimports"
+
 
 " Plug 'timcharper/textile.vim', { 'for': 'textile' }
 " Plug 'lambdatoast/elm.vim', { 'for': 'elm' }
