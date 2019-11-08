@@ -44,31 +44,6 @@ function! mhi#close_bracket() abort
   return ''
 endfunction
 
-"
-" GitHub
-"
-function! mhi#github_open_issue() abort
-  if !exists('b:git_dir')
-    return
-  endif
-  let issue = matchstr(expand('<cWORD>'), '\d\+')
-  if empty(issue)
-    return
-  endif
-  let remote = systemlist('git config branch.master.remote || echo origin')[0]
-  let url = systemlist(printf('git config remote.%s.url', remote))[0]
-  let slug = substitute(matchstr(url, '\v[/:]\zs.*'), '\.git', '', '')
-  let url = 'https://github.com/'. slug .'/issues/'. issue
-  silent execute '!open -a Google\ Chrome' url
-endfunction
-
-function! mhi#github_open_slug() abort
-  let old_isk = &iskeyword
-  let &iskeyword = 'a-z,A-z,48-57,-,_,/,.'
-  let slug = expand('<cword>')
-  let &iskeyword = old_isk
-  call system('open https://github.com/'. slug)
-endfunction
 
 "
 " Tmux
@@ -108,24 +83,6 @@ function! mhi#jump()
   endif
 endfunction
 
-"
-" Showing [+1 -2 ~3] in statusline.
-"
-function! mhi#sy_stats_wrapper()
-  let symbols = ['+', '-', '~']
-  let [added, modified, removed] = sy#repo#get_stats()
-  let stats = [added, removed, modified]  " reorder
-  let hunkline = ''
-  for i in range(3)
-    if stats[i] > 0
-      let hunkline .= printf('%s%s ', symbols[i], stats[i])
-    endif
-  endfor
-  if !empty(hunkline)
-    let hunkline = '%3*[%5*'. hunkline[:-2] .'%3*]%*'
-  endif
-  return hunkline
-endfunction
 
 "
 " Verbatim matching for *.

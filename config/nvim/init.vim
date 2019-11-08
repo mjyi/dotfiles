@@ -8,59 +8,67 @@ endif
 if !filereadable(expand('~/.vim/autoload/plug.vim'))
     execute '!curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 endif
-"}}}
 
+filetype indent plugin on
+if !exists('g:syntax_on')
+  syntax enable
+endif
+
+
+"}}}
 " Plug {{{1
 call functions#PlugLoad()
 call plug#begin('~/.config/nvim/plugged')
-    Plug 'sainnhe/vim-color-forest-night'
-
-    Plug 'pacha/vem-tabline'
-    Plug 'AndrewRadev/splitjoin.vim'
-    Plug 'tpope/vim-commentary'
-    Plug 'tpope/vim-surround'
-    Plug 'tpope/vim-repeat'
-    Plug 'tpope/vim-endwise'
-    Plug 'tpope/vim-fugitive'
-    Plug 'tpope/vim-sleuth'
-    Plug 'tpope/vim-fugitive'
-    Plug 'tpope/vim-rhubarb'
-    Plug 'tpope/vim-vinegar'
-    Plug 'jiangmiao/auto-pairs'
-    Plug 'benmills/vimux'
-    Plug 'mhinz/vim-janah'
-    Plug 'mhinz/vim-signify'
-    Plug 'mhinz/vim-startify'
-    Plug 'mhinz/vim-halo'
-    Plug '/usr/local/opt/fzf'
-    Plug 'junegunn/fzf.vim'
-    Plug 'junegunn/gv.vim', {'on': 'GV'}
-    Plug 'junegunn/vader.vim'
-    Plug 'junegunn/vim-easy-align', {'on': '<plug>(LiveEasyAlign)'}
-    Plug 'justinmk/vim-dirvish'
-    Plug 'rhysd/committia.vim'
-    Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
-    Plug 'mbbill/undotree', {'on': 'UndotreeToggle'}
-    Plug 'moll/vim-bbye'
-
-    "coc.nvim
-    Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install() }}
-    Plug 'honza/vim-snippets'
-    Plug 'rust-lang/rust.vim', {'for': 'rust'}
-    Plug 'rhysd/rust-doc.vim', {'for': 'rust'}
-    Plug 'lifepillar/pgsql.vim', {'for': 'sql'}
-    Plug 'mattn/emmet-vim', {'for': 'html'}
-    Plug 'AndrewRadev/tagalong.vim', {'for': 'html'}
-    Plug 'rhysd/rust-doc.vim'
-    Plug 'fatih/vim-go', { 'for': 'go' }
-    Plug 'Chiel92/vim-autoformat'
-    Plug 'vim-pandoc/vim-pandoc'
-    Plug 'vim-pandoc/vim-pandoc-syntax'
-    Plug 'terryma/vim-multiple-cursors'
+  Plug 'sainnhe/vim-color-forest-night'
+  " Plug 'itchyny/lightline.vim'
+  Plug 'pacha/vem-tabline'
+  Plug 'AndrewRadev/splitjoin.vim'
+  Plug 'tpope/vim-commentary'
+  Plug 'tpope/vim-surround'
+  Plug 'tpope/vim-repeat'
+  Plug 'tpope/vim-endwise'
+  Plug 'tpope/vim-fugitive'
+  Plug 'tpope/vim-sleuth'
+  Plug 'tpope/vim-fugitive'
+  Plug 'tpope/vim-rhubarb'
+  Plug 'tpope/vim-vinegar'
+  Plug 'jiangmiao/auto-pairs'
+  Plug 'benmills/vimux'
+  Plug 'mhinz/vim-janah'
+  Plug 'mhinz/vim-signify'
+  Plug 'mhinz/vim-startify'
+  Plug 'mhinz/vim-halo'
+  Plug '/usr/local/opt/fzf'
+  Plug 'junegunn/fzf.vim'
+  Plug 'junegunn/gv.vim', {'on': 'GV'}
+  Plug 'junegunn/vader.vim'
+  Plug 'junegunn/vim-easy-align', {'on': '<plug>(LiveEasyAlign)'}
+  Plug 'justinmk/vim-dirvish'
+  Plug 'rhysd/committia.vim'
+  Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
+  Plug 'mbbill/undotree', {'on': 'UndotreeToggle'}
+  Plug 'moll/vim-bbye'
+  Plug 'easymotion/vim-easymotion'
+  Plug 'haya14busa/incsearch.vim'
+  Plug 'haya14busa/incsearch-fuzzy.vim'
+  Plug 'haya14busa/incsearch-easymotion.vim'
+  "coc.nvim
+  Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install() }}
+  Plug 'honza/vim-snippets'
+  Plug 'rust-lang/rust.vim', {'for': 'rust'}
+  Plug 'rhysd/rust-doc.vim', {'for': 'rust'}
+  Plug 'lifepillar/pgsql.vim', {'for': 'sql'}
+  Plug 'mattn/emmet-vim', {'for': 'html'}
+  Plug 'AndrewRadev/tagalong.vim', {'for': 'html'}
+  Plug 'rhysd/rust-doc.vim'
+  Plug 'fatih/vim-go', { 'for': 'go' }
+  Plug 'Chiel92/vim-autoformat'
+  Plug 'vim-pandoc/vim-pandoc'
+  Plug 'vim-pandoc/vim-pandoc-syntax'
+  Plug 'terryma/vim-multiple-cursors'
 call plug#end()
 
 " }}}1
-
 " Option {{{1
 " indent settings
 set number
@@ -171,7 +179,6 @@ if has('multi_byte') && &encoding ==# 'utf-8'
   let &listchars = 'tab:▸ ,extends:❯,precedes:❮,nbsp:±'
   let &fillchars = 'vert: ,diff: '  " ▚
   let &showbreak = '↪ '
-  highlight VertSplit ctermfg=242
   augroup vimrc
     autocmd InsertEnter * set listchars-=trail:⣿
     autocmd InsertLeave * set listchars+=trail:⣿
@@ -198,7 +205,7 @@ set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
 
 if &term =~ '256color'
     " disable background color erase
-    set t_ut=
+  set t_ut=
 endif
 
 " enable 24 bit color support if supported
@@ -209,6 +216,7 @@ if (has("termguicolors"))
     endif
     set termguicolors
 endif
+
 
 " Mappings {{{1
 let mapleader = ','
@@ -353,105 +361,23 @@ augroup END
 command! Rm call functions#Delete()
 command! RM call functions#Delete() <Bar> q!
 
-" Color {{{1
-function! s:colors_default() abort
-  highlight Comment cterm=italic
-  highlight link User1 StatusLine   " master branch
-  highlight link User2 StatusLine   " other branch
-  highlight link User3 StatusLine   " separators
-  highlight link User4 StatusLine   " filename at beginning
-  highlight link User5 StatusLine   " ~changes
-  highlight link SignifySignAdd    DiffAdd
-  highlight link SignifySignDelete DiffDelete
-  highlight link SignifySignChange DiffChange
-  highlight Halo guifg=white guibg=#F92672 ctermfg=white ctermbg=197
-endfunction
-
-function! s:colors_janah() abort
-  highlight User1  ctermfg=192 ctermbg=237 cterm=NONE
-  highlight User2  ctermfg=167 ctermbg=237 cterm=NONE
-  highlight User3  ctermfg=245 ctermbg=237 cterm=NONE
-  highlight User4  ctermfg=215 ctermbg=237 cterm=NONE
-  highlight User5  ctermfg=111 ctermbg=237 cterm=NONE
-endfunction
-
-function! s:colors_lucius() abort
-  if &background ==# 'light'
-    highlight Normal                  ctermbg=NONE
-    highlight CursorLine              ctermbg=255
-    highlight User1      ctermfg=84   ctermbg=237  cterm=NONE
-    highlight User2      ctermfg=222  ctermbg=237  cterm=NONE
-    highlight User3      ctermfg=237  ctermbg=237  cterm=NONE
-    highlight User4      ctermfg=255  ctermbg=237  cterm=NONE
-    highlight User5      ctermfg=255  ctermbg=237  cterm=NONE
-    highlight StatusLine              ctermbg=237  cterm=NONE
-    highlight SignColumn ctermfg=NONE ctermbg=NONE cterm=NONE
-    highlight Question   ctermfg=24   ctermbg=255  cterm=NONE
-    highlight Search     ctermfg=fg   ctermbg=222  cterm=NONE
-    highlight Folded                  ctermbg=253  cterm=NONE
-    highlight NormalFloat ctermfg=231 ctermbg=240  cterm=NONE
-  endif
-endfunction
-
-function! s:colors_snow() abort
-  highlight Normal ctermbg=NONE guibg=NONE
-endfunction
-
-augroup vimrc
-  autocmd ColorScheme *      call s:colors_default()
-  autocmd ColorScheme janah  call s:colors_janah()
-  autocmd ColorScheme lucius call s:colors_lucius()
-  autocmd ColorScheme snow   call s:colors_snow()
-augroup END
-
+" ColorScheme {{{1
 colorscheme forest-night
+" hi VertSplit term=reverse cterm=reverse gui=none guibg=Grey10 guifg=White
 
 " Statusline {{{1
-command! -bar ToggleStatusline let b:stl_location  = !get(b:, 'stl_location')
-command! -bar ToggleHighlight  let b:stl_highlight = !get(b:, 'stl_highlight')
+function! s:statusline_expr()
+  let mod = "%{&modified ? '[+] ' : !&modifiable ? '[x] ' : ''}"
+  let ro  = "%{&readonly ? '[RO] ' : ''}"
+  let ft  = "%{len(&filetype) ? '['.&filetype.'] ' : ''}"
+  let fug = "%{exists('g:loaded_fugitive') ? fugitive#statusline() : ''}"
+  let sep = ' %= '
+  let pos = ' %-12(%l : %c%V%) '
+  let pct = ' %P'
 
-nnoremap <silent><f10> :ToggleStatusline<cr>
-nnoremap <silent><f11> :ToggleHighlight<cr>
-
-set statusline=%!SetStatusline()
-
-function! SetStatusline()
-  let stl = ' %4*%<%f%*'
-
-  if exists('b:git_dir')
-    let stl    .= '%3*:%*'
-    let branch  = fugitive#head(8)
-    let stl    .= (branch == 'master') ? '%1*master%*' : '%2*'. branch .'%*'
-    let stl    .= mhi#sy_stats_wrapper()
-  endif
-
-  let stl .= '%m%r%h%w '
-
-  " right side
-  let stl .=
-        \   '%= '
-        \ . '%#ErrorMsg#%{&paste ? " paste " : ""}%*'
-        \ . '%#WarningMsg#%{&ff != "unix" ? " ".&ff." ":""}%* '
-        \ . '%#warningmsg#%{&fenc != "utf-8" && &fenc != "" ? " ".&fenc." " :""}%* '
-
-  if get(b:, 'stl_highlight')
-    let id = synID(line('.'), col('.'), 1)
-    let stl .=
-          \   '%#WarningMsg#['
-          \ . '%{synIDattr('.id.',"name")} as '
-          \ . '%{synIDattr(synIDtrans('.id.'),"name")}'
-          \ . ']%* '
-  endif
-
-  if get(b:, 'stl_location')
-    let stl .=
-          \   '%3*[%*%v%3*,%*%l%3*/%*%L%3*]%* '
-          \ . '%p%3*%%%* '
-  endif
-
-  return stl
+  return '[%n] %F %<'.mod.ro.ft.fug.sep.pos.'%*'.pct
 endfunction
-" }}}1
+let &statusline = s:statusline_expr()
 
 " Plugin {{{1
 " Plugin: exception {{{2
@@ -508,13 +434,6 @@ command! -bang -nargs=? -complete=dir GitFiles
 " Plugin: vim-startify {{{2
 nnoremap <leader>st :Startify<cr>
 
-" let g:startify_change_to_dir       = 0
-" let g:startify_custom_header       = 'startify#pad(startify#fortune#boxed())'
-" let g:startify_enable_special      = 0
-" let g:startify_fortune_use_unicode = 1
-" let g:startify_update_oldfiles     = 1
-" let g:startify_use_env             = 1
-
 let g:startify_files_number = 5
 let g:startify_change_to_dir = 0
 let g:startify_custom_header = [ ]
@@ -564,19 +483,37 @@ nnoremap <f3>  :UndotreeToggle<cr>
 xmap <cr> <plug>(LiveEasyAlign)
 
 " Plugin: vim-easymotion {{{2
-let g:EasyMotion_do_mapping        = 0
-let g:EasyMotion_do_shade          = 1
-let g:EasyMotion_inc_highlight     = 0
-let g:EasyMotion_landing_highlight = 0
-let g:EasyMotion_off_screen_search = 0
-let g:EasyMotion_smartcase         = 0
-let g:EasyMotion_startofline       = 0
-let g:EasyMotion_use_smartsign_us  = 1
-let g:EasyMotion_use_upper         = 0
+map  / <Plug>(easymotion-sn)
+omap / <Plug>(easymotion-tn)
 
-let g:EasyMotion_skipfoldedline = 0
+map  n <Plug>(easymotion-next)
+map  N <Plug>(easymotion-prev)
 
-map <silent><space> <plug>(easymotion-s2)
+function! s:incsearch_config(...) abort
+    return incsearch#util#deepextend(deepcopy({
+                \   'modules': [incsearch#config#easymotion#module({'overwin': 1})],
+                \   'keymap': {
+                \     "\<CR>": '<Over>(easymotion)'
+                \   },
+                \   'is_expr': 0
+                \ }), get(a:, 1, {}))
+endfunction
+
+noremap <silent><expr> /  incsearch#go(<SID>incsearch_config())
+noremap <silent><expr> ?  incsearch#go(<SID>incsearch_config({'command': '?'}))
+noremap <silent><expr> g/ incsearch#go(<SID>incsearch_config({'is_stay': 1}))
+
+function! s:config_easyfuzzymotion(...) abort
+    return extend(copy({
+                \   'converters': [incsearch#config#fuzzyword#converter()],
+                \   'modules': [incsearch#config#easymotion#module({'overwin': 1})],
+                \   'keymap': {"\<CR>": '<Over>(easymotion)'},
+                \   'is_expr': 0,
+                \   'is_stay': 1
+                \ }), get(a:, 1, {}))
+endfunction
+
+noremap <silent><expr> <Space>/ incsearch#go(<SID>config_easyfuzzymotion())
 
 
 " Plugin: vim-pandoc {{{2
@@ -686,5 +623,9 @@ inoremap <silent><expr> <TAB>
             \ <SID>check_back_space() ? "\<TAB>" :
             \ coc#refresh()
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+" Plugin: lightline {{{2
+let g:lightline = {}
+let g:lightline.colorscheme = 'forest_night'
 
 " }}}1
