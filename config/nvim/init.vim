@@ -20,7 +20,6 @@ endif
 call functions#PlugLoad()
 call plug#begin('~/.config/nvim/plugged')
   Plug 'sainnhe/vim-color-forest-night'
-  " Plug 'itchyny/lightline.vim'
   Plug 'pacha/vem-tabline'
   Plug 'AndrewRadev/splitjoin.vim'
   Plug 'tpope/vim-commentary'
@@ -535,7 +534,7 @@ let g:go_highlight_structs = 1
 let g:go_fmt_command = "goimports"
 
 " Plugin: vim-rust {{{2
-let g:rustfmt_autosave = 1
+" let g:rustfmt_autosave = 1
 
 " Plugin: coc.nvim {{{2
 function! s:can_complete(func, prefix)
@@ -624,8 +623,5 @@ inoremap <silent><expr> <TAB>
             \ coc#refresh()
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
-" Plugin: lightline {{{2
-let g:lightline = {}
-let g:lightline.colorscheme = 'forest_night'
 
 " }}}1
