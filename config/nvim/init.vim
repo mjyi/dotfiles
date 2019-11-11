@@ -25,18 +25,15 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'tpope/vim-commentary'
   Plug 'tpope/vim-surround'
   Plug 'tpope/vim-repeat'
-  Plug 'tpope/vim-endwise'
   Plug 'tpope/vim-fugitive'
   Plug 'tpope/vim-sleuth'
   Plug 'tpope/vim-fugitive'
   Plug 'tpope/vim-rhubarb'
   Plug 'tpope/vim-vinegar'
-  Plug 'jiangmiao/auto-pairs'
   Plug 'benmills/vimux'
   Plug 'mhinz/vim-janah'
   Plug 'mhinz/vim-signify'
   Plug 'mhinz/vim-startify'
-  Plug 'mhinz/vim-halo'
   Plug '/usr/local/opt/fzf'
   Plug 'junegunn/fzf.vim'
   Plug 'junegunn/gv.vim', {'on': 'GV'}
@@ -55,11 +52,9 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install() }}
   Plug 'honza/vim-snippets'
   Plug 'rust-lang/rust.vim', {'for': 'rust'}
-  Plug 'rhysd/rust-doc.vim', {'for': 'rust'}
   Plug 'lifepillar/pgsql.vim', {'for': 'sql'}
   Plug 'mattn/emmet-vim', {'for': 'html'}
   Plug 'AndrewRadev/tagalong.vim', {'for': 'html'}
-  Plug 'rhysd/rust-doc.vim'
   Plug 'fatih/vim-go', { 'for': 'go' }
   Plug 'Chiel92/vim-autoformat'
   Plug 'vim-pandoc/vim-pandoc'
@@ -82,6 +77,13 @@ set shiftround
 
 set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+
+" better coc.nvim
+" set hidden
+set nobackup
+set nowritebackup
+set updatetime=300
+set signcolumn=yes
 
 " better navigation
 set cursorline
@@ -236,24 +238,6 @@ noremap <space> :set hlsearch! hlsearch?<cr>
 nmap <leader><space> :%s/\s\+$<cr>
 nmap <leader><space><space> :%s/\n\{2,}/\r\r/g<cr>
 
-" inoremap <expr> <C-j> pumvisible() ? "\<C-N>" : "\<C-j>"
-" inoremap <expr> <C-k> pumvisible() ? "\<C-P>" : "\<C-k>"
-
-" ----------------------------------------------------------------------------
-" Quickfix
-" ----------------------------------------------------------------------------
-nnoremap <silent> <c-p> :cprevious \| call halo#run()<cr>
-nnoremap <silent> <c-n> :cnext \| call halo#run()<cr>
-nnoremap <silent> [q    :cprevious \| call halo#run()<cr>
-nnoremap <silent> ]q    :cnext \| call halo#run()<cr>
-nnoremap <silent> [l    :lprevious \| call halo#run()<cr>
-nnoremap <silent> ]l    :lnext \| call halo#run()<cr>
-nnoremap <silent> [b    :call mhi#switch_buffer('bprevious')<cr>
-nnoremap <silent> ]b    :call mhi#switch_buffer('bnext')<cr>
-nnoremap <silent> [t    :tabprevious \| call halo#run()<cr>
-nnoremap <silent> ]t    :tabnext \| call halo#run()<cr>
-nnoremap <silent> <tab> <c-w>w:call halo#run()<cr>
-
 " ----------------------------------------------------------------------------
 " Buffers
 " ----------------------------------------------------------------------------
@@ -383,21 +367,20 @@ let &statusline = s:statusline_expr()
 nnoremap <silent><leader>E :call exception#trace()<cr>
 
 " Plugin: netrw {{{2
-let g:netrw_banner       = 0
-let g:netrw_bufsettings  = 'relativenumber'
-let g:netrw_keepdir      = 0
-let g:netrw_liststyle    = 1
-let g:netrw_sort_options = 'i'
+let g:netrw_chgwin = 2
+let g:netrw_list_hide = ',\(^\|\s\s\)\zs\.\S\+'
+let g:netrw_winsize=20
+let g:netrw_liststyle=3
 
 " Plugin: vim-bbye {{{2
-nmap <leader>b :Bdelete<cr>
+nnoremap <leader>b :Bdelete<cr>
 
 " Plugin: fzf {{{2
 let g:fzf_layout = { 'down': '~25%' }
 
 nnoremap <leader><leader> :Buffers<cr>
 nnoremap <leader>f        :FZF<cr>
-nmap <silent> <leader>s   :GFiles?<cr>
+nnoremap <silent><leader>s   :GFiles?<cr>
 
 if isdirectory(".git")
     nmap <silent> <leader>t :GitFiles --cached --others --exclude-standard<cr>
@@ -537,91 +520,109 @@ let g:go_fmt_command = "goimports"
 " let g:rustfmt_autosave = 1
 
 " Plugin: coc.nvim {{{2
-function! s:can_complete(func, prefix)
-    if empty(a:func)
-        return 0
-    endif
-    let start = call(a:func, [1, ''])
-    if start < 0
-        return 0
-    endif
+let g:coc_global_extensions = [
+      \'coc-pairs',
+      \'coc-json',
+      \'coc-highlight',
+      \'coc-dictionary',
+      \'coc-tag',
+      \'coc-snippets',
+      \'coc-lists',
+      \'coc-syntax',
+      \'coc-word',
+      \'coc-lines',
+      \'coc-rust-analyzer'
+      \]
 
-    let oline  = getline('.')
-    let line   = oline[0:start-1] . oline[col('.')-1:]
-
-    let opos   = getpos('.')
-    let pos    = copy(opos)
-    let pos[2] = start + 1
-
-    call setline('.', line)
-    call setpos('.', pos)
-    let result = call(a:func, [0, matchstr(a:prefix, '\k\+$')])
-    call setline('.', oline)
-    call setpos('.', opos)
-
-    if !empty(type(result) == type([]) ? result : result.words)
-        call complete(start + 1, result)
-        return 1
-    endif
-    return 0
-endfunction
-
-function! s:feedkeys(k)
-    call feedkeys(a:k, 'n')
-    return ''
-endfunction
-
-function! s:super_duper_tab(pumvisible, next)
-    let [k, o] = a:next ? ["\<c-n>", "\<tab>"] : ["\<c-p>", "\<s-tab>"]
-    if a:pumvisible
-        return s:feedkeys(k)
-    endif
-
-    let line = getline('.')
-    let col = col('.') - 2
-    if line[col] !~ '\k\|[/~.]'
-        return s:feedkeys(o)
-    endif
-
-    let prefix = expand(matchstr(line[0:col], '\S*$'))
-    if prefix =~ '^[~/.]'
-        return s:feedkeys("\<c-x>\<c-f>")
-    endif
-    if s:can_complete(&omnifunc, prefix) || s:can_complete(&completefunc, prefix)
-        return ''
-    endif
-    return s:feedkeys(k)
-endfunction
-
-if has_key(g:plugs, 'ultisnips')
-    " UltiSnips will be loaded only when tab is first pressed in insert mode
-    if !exists(':UltiSnipsEdit')
-        inoremap <silent> <Plug>(tab) <c-r>=plug#load('ultisnips')?UltiSnips#ExpandSnippet():''<cr>
-        imap <tab> <Plug>(tab)
-    endif
-
-    let g:SuperTabMappingForward  = "<tab>"
-    let g:SuperTabMappingBackward = "<s-tab>"
-    function! SuperTab(m)
-        return s:super_duper_tab(a:m == 'n' ? "\<c-n>" : "\<c-p>",
-                    \ a:m == 'n' ? "\<tab>" : "\<s-tab>")
-    endfunction
-else
-    inoremap <silent> <tab>   <c-r>=<SID>super_duper_tab(pumvisible(), 1)<cr>
-    inoremap <silent> <s-tab> <c-r>=<SID>super_duper_tab(pumvisible(), 0)<cr>
-endif
-
-" TBD
 function! s:check_back_space() abort
-    let col = col('.') - 1
-    return !col || getline('.')[col - 1]  =~# '\s'
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocActionAsync('doHover')
+  endif
+endfunction
+
+function! s:GoToDefinition()
+  if CocAction('jumpDefinition')
+    return v:true
+  endif
+
+  let ret = execute("silent! normal \<C-]>")
+  if ret =~ "Error" || ret =~ "错误"
+    call searchdecl(expand('<cword>'))
+  endif
+endfunction
+
+function! s:select_current_word()
+  if !get(g:, 'coc_cursors_activated', 0)
+    return "\<Plug>(coc-cursors-word)"
+  endif
+  return "*\<Plug>(coc-cursors-word):nohlsearch\<CR>"
+endfunc
+
+function! CopyFloatText() abort
+  let id = win_getid()
+  let winid = coc#util#get_float()
+  if winid
+    call win_gotoid(winid)
+    execute 'normal! ggvGy'
+    call win_gotoid(id)
+  endif
+endfunction
+
+
+nmap <silent> gd :call <SID>GoToDefinition()<CR>
+nmap <silent> gD <Plug>(coc-declaration)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+nmap <silent> gn <Plug>(coc-rename)
+nmap <silent> ge <Plug>(coc-diagnostic-next)
+nmap <silent> ga <Plug>(coc-codeaction)
+nmap <silent> gl <Plug>(coc-codelens-action)
+nmap <silent> gs <Plug>(coc-git-chunkinfo)
+nmap <silent> gm <Plug>(coc-git-commit)
+omap <silent> ig <Plug>(coc-git-chunk-inner)
+xmap <silent> ig <Plug>(coc-git-chunk-inner)
+
+
+
+inoremap <silent><expr> <CR> pumvisible() ? coc#_select_confirm()
+      \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+inoremap <silent><expr> <S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+inoremap <silent><expr> <c-space> coc#refresh()
 inoremap <silent><expr> <TAB>
-            \ pumvisible() ? "\<C-n>" :
-            \ <SID>check_back_space() ? "\<TAB>" :
-            \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+nnoremap <silent> <space>o  :<C-u>CocList -A outline<CR>
+nnoremap <silent> <space>a  :<C-u>CocList diagnostics<CR>
+nnoremap <silent> <space>f  :<C-u>CocList files<CR>
+nnoremap <silent> <space>l  :<C-u>CocList locationlist<CR>
+nnoremap <silent> <space>q  :<C-u>CocList quickfix<CR>
+nnoremap <silent> <space>w  :<C-u>CocList -I -N symbols<CR>
+nnoremap <silent> <space>y  :<C-u>CocList -A --normal yank<CR>
+nnoremap <silent> <space>m  :<C-u>CocList -A -N mru<CR>
+nnoremap <silent> <space>b  :<C-u>CocList -A -N --normal buffers<CR>
+nnoremap <silent> <space>j  :<C-u>CocNext<CR>
+nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
+nnoremap <silent> <space>s  :exe 'CocList -A -I --normal --input='.expand('<cword>').' words'<CR>
+nnoremap <silent> <space>S  :exe 'CocList -A --normal grep '.expand('<cword>').''<CR>
+
+" imap <C-k> <Plug>(coc-snippets-expand)
+" nmap <silent> <TAB> <Plug>(coc-range-select)
+" xmap <silent> <TAB> <Plug>(coc-range-select)
+
+call coc#add_command('tree', 'Vexplore', 'open netrw explorer')
+
+
 
 
 " }}}1
