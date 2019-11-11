@@ -115,7 +115,7 @@ set more
 set mousemodel    =popup
 set noautowrite
 set noautowriteall
-set noequalalways
+" set noequalalways
 set noerrorbells
 set nofsync
 set nojoinspaces
@@ -526,6 +526,7 @@ let g:coc_global_extensions = [
       \'coc-highlight',
       \'coc-dictionary',
       \'coc-tag',
+      \'coc-git',
       \'coc-snippets',
       \'coc-lists',
       \'coc-syntax',
@@ -575,7 +576,20 @@ function! CopyFloatText() abort
   endif
 endfunction
 
+" Command
+command! -nargs=0 C             :CocConfig
+command! -nargs=0 R             :CocRestart
+command! -nargs=0 L             :CocListResume
+command! -nargs=0 -range D      :CocCommand
 
+command! -nargs=0 Todos         :CocList -A --normal grep -e TODO|FIXME
+command! -nargs=0 Status        :CocList -A --normal gstatus
+command! -nargs=+ Find          :exe 'CocList -A --normal grep --smart-case '.<q-args>
+command! -nargs=0 Format        :call CocAction('format')
+command! -nargs=0 GitChunkUndo  :call CocAction('runCommand', 'git.chunkUndo')
+command! -nargs=0 OR            :call CocAction('runCommand', 'editor.action.organizeImport')
+
+" Mappings
 nmap <silent> gd :call <SID>GoToDefinition()<CR>
 nmap <silent> gD <Plug>(coc-declaration)
 nmap <silent> gy <Plug>(coc-type-definition)
@@ -589,7 +603,6 @@ nmap <silent> gs <Plug>(coc-git-chunkinfo)
 nmap <silent> gm <Plug>(coc-git-commit)
 omap <silent> ig <Plug>(coc-git-chunk-inner)
 xmap <silent> ig <Plug>(coc-git-chunk-inner)
-
 
 
 inoremap <silent><expr> <CR> pumvisible() ? coc#_select_confirm()
@@ -608,7 +621,6 @@ nnoremap <silent> <space>f  :<C-u>CocList files<CR>
 nnoremap <silent> <space>l  :<C-u>CocList locationlist<CR>
 nnoremap <silent> <space>q  :<C-u>CocList quickfix<CR>
 nnoremap <silent> <space>w  :<C-u>CocList -I -N symbols<CR>
-nnoremap <silent> <space>y  :<C-u>CocList -A --normal yank<CR>
 nnoremap <silent> <space>m  :<C-u>CocList -A -N mru<CR>
 nnoremap <silent> <space>b  :<C-u>CocList -A -N --normal buffers<CR>
 nnoremap <silent> <space>j  :<C-u>CocNext<CR>
@@ -616,13 +628,6 @@ nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 nnoremap <silent> <space>s  :exe 'CocList -A -I --normal --input='.expand('<cword>').' words'<CR>
 nnoremap <silent> <space>S  :exe 'CocList -A --normal grep '.expand('<cword>').''<CR>
 
-" imap <C-k> <Plug>(coc-snippets-expand)
-" nmap <silent> <TAB> <Plug>(coc-range-select)
-" xmap <silent> <TAB> <Plug>(coc-range-select)
-
 call coc#add_command('tree', 'Vexplore', 'open netrw explorer')
-
-
-
 
 " }}}1
