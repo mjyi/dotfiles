@@ -21,6 +21,10 @@ call functions#PlugLoad()
 call plug#begin('~/.config/nvim/plugged')
   Plug 'sainnhe/vim-color-forest-night'
   Plug 'pacha/vem-tabline'
+  Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] }
+  Plug 'Xuyuanp/nerdtree-git-plugin'
+  Plug 'ryanoasis/vim-devicons'
+
   Plug 'AndrewRadev/splitjoin.vim'
   Plug 'tpope/vim-commentary'
   Plug 'tpope/vim-surround'
@@ -29,7 +33,6 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'tpope/vim-sleuth'
   Plug 'tpope/vim-fugitive'
   Plug 'tpope/vim-rhubarb'
-  Plug 'tpope/vim-vinegar'
   Plug 'benmills/vimux'
   Plug 'mhinz/vim-janah'
   Plug 'mhinz/vim-signify'
@@ -411,8 +414,6 @@ command! -bang -nargs=? -complete=dir Files
 command! -bang -nargs=? -complete=dir GitFiles
             \ call fzf#vim#gitfiles(<q-args>, fzf#vim#with_preview('right:50%', '?'), <bang>0)
 
-" command! Todo Grepper -noprompt -tool rg -query '(TODO|FIX|FIXME|XXX|NOTE|HACK|OPTIMIZE):'
-
 " Plugin: vim-startify {{{2
 nnoremap <leader>st :Startify<cr>
 
@@ -457,6 +458,29 @@ let g:tagbar_width     = 40
 let g:tagbar_autoclose = 0
 let g:tagbar_autofocus = 1
 let g:tagbar_compact   = 1
+
+" Plugin Devicons {{{2
+let g:WebDevIconsOS = 'Darwin'
+let g:WebDevIconsUnicodeDecorateFolderNodes = 1
+let g:DevIconsEnableFoldersOpenClose = 1
+let g:DevIconsEnableFolderExtensionPatternMatching = 1
+
+" Plugin: NERDTree {{{2
+let NERDTreeDirArrowExpandable = "\u00a0" " make arrows invisible
+let NERDTreeDirArrowCollapsible = "\u00a0" " make arrows invisible
+let NERDTreeNodeDelimiter = "\u263a" " smiley face
+let NERDTreeShowHidden=1
+
+" Toggle NERDTree
+function! ToggleNerdTree()
+    if @% != "" && @% !~ "Startify" && (!exists("g:NERDTree") || (g:NERDTree.ExistsForTab() && !g:NERDTree.IsOpen()))
+        :NERDTreeFind
+    else
+        :NERDTreeToggle
+    endif
+endfunction
+" toggle nerd tree
+nmap <silent> <leader>k :call ToggleNerdTree()<cr>
 
 " Plugin: undotree {{{2
 nnoremap <f3>  :UndotreeToggle<cr>
@@ -629,7 +653,5 @@ nnoremap <silent> <space>j  :<C-u>CocNext<CR>
 nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 nnoremap <silent> <space>s  :exe 'CocList -A -I --normal --input='.expand('<cword>').' words'<CR>
 nnoremap <silent> <space>S  :exe 'CocList -A --normal grep '.expand('<cword>').''<CR>
-
-call coc#add_command('tree', 'Vexplore', 'open netrw explorer')
 
 " }}}1
