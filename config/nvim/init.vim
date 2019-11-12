@@ -178,7 +178,7 @@ set formatoptions =tcrqnj
 
 if has('multi_byte') && &encoding ==# 'utf-8'
   let &listchars = 'tab:▸ ,extends:❯,precedes:❮,nbsp:±'
-  let &fillchars = 'vert: ,diff: '  " ▚
+  let &fillchars = 'vert:|,diff: '  " ▚
   let &showbreak = '↪ '
   augroup vimrc
     autocmd InsertEnter * set listchars-=trail:⣿
@@ -346,7 +346,6 @@ command! RM call functions#Delete() <Bar> q!
 
 " ColorScheme {{{1
 colorscheme forest-night
-" hi VertSplit term=reverse cterm=reverse gui=none guibg=Grey10 guifg=White
 
 " Statusline {{{1
 function! s:statusline_expr()
@@ -588,6 +587,8 @@ command! -nargs=+ Find          :exe 'CocList -A --normal grep --smart-case '.<q
 command! -nargs=0 Format        :call CocAction('format')
 command! -nargs=0 GitChunkUndo  :call CocAction('runCommand', 'git.chunkUndo')
 command! -nargs=0 OR            :call CocAction('runCommand', 'editor.action.organizeImport')
+
+autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " Mappings
 nmap <silent> gd :call <SID>GoToDefinition()<CR>
