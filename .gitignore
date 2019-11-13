@@ -4,6 +4,7 @@ npm-debug.log
 
 plug.vim.old
 
+config/nvim/sessions
 config/nvim/spell
 config/nvim/shada
 config/nvim/plugged
