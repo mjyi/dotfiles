@@ -523,6 +523,7 @@ noremap <silent><expr> <Space>/ incsearch#go(<SID>config_easyfuzzymotion())
 
 
 " Plugin: vim-pandoc {{{2
+let g:pandoc#spell#enabled = 0
 augroup pandoc_syntax
     au! BufNewFile,BufFilePre,BufRead *.md set filetype=markdown.pandoc
 augroup END
