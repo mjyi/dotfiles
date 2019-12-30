@@ -51,11 +51,11 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'haya14busa/incsearch.vim'
   Plug 'haya14busa/incsearch-fuzzy.vim'
   Plug 'haya14busa/incsearch-easymotion.vim'
-  "coc.nvim
   Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install() }}
   Plug 'honza/vim-snippets'
   Plug 'rust-lang/rust.vim', {'for': 'rust'}
   Plug 'lifepillar/pgsql.vim', {'for': 'sql'}
+  Plug 'cespare/vim-toml'
   Plug 'mattn/emmet-vim', {'for': 'html'}
   Plug 'AndrewRadev/tagalong.vim', {'for': 'html'}
   Plug 'fatih/vim-go', { 'for': 'go' }
@@ -63,6 +63,7 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'vim-pandoc/vim-pandoc'
   Plug 'vim-pandoc/vim-pandoc-syntax'
   Plug 'terryma/vim-multiple-cursors'
+  Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
 call plug#end()
 
 " }}}1
@@ -631,9 +632,8 @@ nmap <silent> gm <Plug>(coc-git-commit)
 omap <silent> ig <Plug>(coc-git-chunk-inner)
 xmap <silent> ig <Plug>(coc-git-chunk-inner)
 
-
-inoremap <silent><expr> <CR> pumvisible() ? coc#_select_confirm()
-      \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+" inoremap <silent><expr> <CR> pumvisible() ? coc#_select_confirm()
+"       \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 inoremap <silent><expr> <S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 inoremap <silent><expr> <c-space> coc#refresh()
 inoremap <silent><expr> <TAB>
