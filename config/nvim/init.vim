@@ -24,7 +24,7 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] }
   Plug 'Xuyuanp/nerdtree-git-plugin'
   Plug 'ryanoasis/vim-devicons'
-
+  Plug 'jiangmiao/auto-pairs'
   Plug 'AndrewRadev/splitjoin.vim'
   Plug 'tpope/vim-commentary'
   Plug 'tpope/vim-surround'
@@ -547,7 +547,6 @@ let g:go_fmt_command = "goimports"
 
 " Plugin: coc.nvim {{{2
 let g:coc_global_extensions = [
-      \'coc-pairs',
       \'coc-json',
       \'coc-highlight',
       \'coc-dictionary',
@@ -632,8 +631,6 @@ nmap <silent> gm <Plug>(coc-git-commit)
 omap <silent> ig <Plug>(coc-git-chunk-inner)
 xmap <silent> ig <Plug>(coc-git-chunk-inner)
 
-" inoremap <silent><expr> <CR> pumvisible() ? coc#_select_confirm()
-"       \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 inoremap <silent><expr> <S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 inoremap <silent><expr> <c-space> coc#refresh()
 inoremap <silent><expr> <TAB>
