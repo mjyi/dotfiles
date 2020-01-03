@@ -56,7 +56,6 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'rust-lang/rust.vim', {'for': 'rust'}
   Plug 'lifepillar/pgsql.vim', {'for': 'sql'}
   Plug 'cespare/vim-toml'
-  Plug 'mattn/emmet-vim', {'for': 'html'}
   Plug 'AndrewRadev/tagalong.vim', {'for': 'html'}
   Plug 'fatih/vim-go', { 'for': 'go' }
   Plug 'Chiel92/vim-autoformat'
