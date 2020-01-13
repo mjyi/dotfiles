@@ -14,7 +14,6 @@ if !exists('g:syntax_on')
   syntax enable
 endif
 
-
 "}}}
 " Plug {{{1
 call functions#PlugLoad()
@@ -40,7 +39,6 @@ call plug#begin('~/.config/nvim/plugged')
   Plug '/usr/local/opt/fzf'
   Plug 'junegunn/fzf.vim'
   Plug 'junegunn/gv.vim', {'on': 'GV'}
-  Plug 'junegunn/vader.vim'
   Plug 'junegunn/vim-easy-align', {'on': '<plug>(LiveEasyAlign)'}
   Plug 'justinmk/vim-dirvish'
   Plug 'rhysd/committia.vim'
@@ -82,7 +80,6 @@ set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 
 " better coc.nvim
-" set hidden
 set nobackup
 set nowritebackup
 set updatetime=300
@@ -230,7 +227,6 @@ inoremap jk <esc>
 inoremap <C-s>     <C-o>:update<cr><Esc>
 nnoremap <C-s>     :update<cr>
 nnoremap <leader>, :update<cr>
-nmap <leader>b :Bdelete<cr>
 
 " edit ~/.config/nvim/init.vim
 map <leader>ev :e! ~/.config/nvim/init.vim<cr>
@@ -359,8 +355,8 @@ function! s:statusline_expr()
   let fug = "%{exists('g:loaded_fugitive') ? fugitive#statusline() : ''}"
   let sep = ' %= '
   let pos = ' %-12(%l : %c%V%) '
-  let pct = ' %P'
-
+  let pct = ' %P '
+  
   return '[%n] %F %<'.mod.ro.ft.fug.sep.pos.'%*'.pct
 endfunction
 let &statusline = s:statusline_expr()
@@ -374,6 +370,9 @@ let g:netrw_chgwin = 2
 let g:netrw_list_hide = ',\(^\|\s\s\)\zs\.\S\+'
 let g:netrw_winsize=20
 let g:netrw_liststyle=3
+
+" Plugin: vem-tabline {{{2
+let g:vem_tabline_show = 2
 
 " Plugin: vim-bbye {{{2
 nnoremap <leader>b :Bdelete<cr>
@@ -485,8 +484,8 @@ nmap <silent> <leader>k :call ToggleNerdTree()<cr>
 " Plugin: undotree {{{2
 nnoremap <f3>  :UndotreeToggle<cr>
 
-" Plugin: vim-easy-align {{{2
-xmap <cr> <plug>(LiveEasyAlign)
+"termguicolors Plugin: vim-easy-align {{{2
+" xmap <cr> <plug>(LiveEasyAlign)
 
 " Plugin: vim-easymotion {{{2
 map  / <Plug>(easymotion-sn)
@@ -547,7 +546,6 @@ let g:go_fmt_command = "goimports"
 " Plugin: coc.nvim {{{2
 let g:coc_global_extensions = [
       \'coc-json',
-      \'coc-highlight',
       \'coc-dictionary',
       \'coc-tag',
       \'coc-git',
@@ -652,3 +650,4 @@ nnoremap <silent> <space>s  :exe 'CocList -A -I --normal --input='.expand('<cwor
 nnoremap <silent> <space>S  :exe 'CocList -A --normal grep '.expand('<cword>').''<CR>
 
 " }}}1
+
