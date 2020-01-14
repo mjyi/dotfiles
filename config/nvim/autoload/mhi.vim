@@ -44,6 +44,24 @@ function! mhi#close_bracket() abort
   return ''
 endfunction
 
+"
+" Showing [+1 -2 ~3] in statusline.
+"
+function! mhi#sy_stats_wrapper()
+  let symbols = ['+', '-', '~']
+  let [added, modified, removed] = sy#repo#get_stats()
+  let stats = [added, removed, modified]  " reorder
+  let hunkline = ''
+  for i in range(3)
+    if stats[i] > 0
+      let hunkline .= printf('%s%s ', symbols[i], stats[i])
+    endif
+  endfor
+  if !empty(hunkline)
+    let hunkline = '%3*[%5*'. hunkline[:-2] .'%3*]%*'
+  endif
+  return hunkline
+endfunction
 
 "
 " Tmux

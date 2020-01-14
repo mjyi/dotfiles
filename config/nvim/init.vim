@@ -30,7 +30,6 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'tpope/vim-repeat'
   Plug 'tpope/vim-fugitive'
   Plug 'tpope/vim-sleuth'
-  Plug 'tpope/vim-fugitive'
   Plug 'tpope/vim-rhubarb'
   Plug 'benmills/vimux'
   Plug 'mhinz/vim-janah'
@@ -82,7 +81,7 @@ set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 " better coc.nvim
 set nobackup
 set nowritebackup
-set updatetime=300
+set updatetime=200
 set signcolumn=yes
 
 " better navigation
@@ -347,19 +346,50 @@ command! RM call functions#Delete() <Bar> q!
 " ColorScheme {{{1
 colorscheme forest-night
 
+
+let g:currentmode={
+       \ 'n'  : 'NORMAL ',
+       \ 'v'  : 'VISUAL ',
+       \ 'V'  : 'V·Line ',
+       \ '' : 'V·Block ',
+       \ 'i'  : 'INSERT ',
+       \ 'R'  : 'R ',
+       \ 'Rv' : 'V·Replace ',
+       \ 'c'  : 'Command ',
+       \}
+hi User1 guifg=#eea040 guibg=#222222
+hi User2 guifg=#dd3333 guibg=#222222
+hi User3 guifg=#ff66ff guibg=#222222
+hi User4 guifg=#a0ee40 guibg=#222222
+hi User5 guifg=#eeee40 guibg=#222222
+
+
+set statusline=
+set statusline+=\ %{toupper(g:currentmode[mode()])}
+set statusline+=%{&modified?'[+]':''}
+set statusline+=%-7([%{&fileformat}]%)
+set statusline+=%#Warnings#
+set statusline+=%{&bomb?'[BOM]':''}
+set statusline+=%2* " use highlight group User2
+set statusline+=%*
+set statusline+=%{&filetype!=#''?&filetype.'\ ':'none\ '}
+set statusline+=%2p%%
+
 " Statusline {{{1
 function! s:statusline_expr()
   let mod = "%{&modified ? '[+] ' : !&modifiable ? '[x] ' : ''}"
   let ro  = "%{&readonly ? '[RO] ' : ''}"
   let ft  = "%{len(&filetype) ? '['.&filetype.'] ' : ''}"
   let fug = "%{exists('g:loaded_fugitive') ? fugitive#statusline() : ''}"
+  let stat = mhi#sy_stats_wrapper()
   let sep = ' %= '
   let pos = ' %-12(%l : %c%V%) '
   let pct = ' %P '
-  
-  return '[%n] %F %<'.mod.ro.ft.fug.sep.pos.'%*'.pct
+
+  return '[%n] %f %<'.mod.ro.ft.fug.stat.sep.pos.'%*'.pct
 endfunction
-let &statusline = s:statusline_expr()
+" let &statusline = s:statusline_expr()
+
 
 " Plugin {{{1
 " Plugin: exception {{{2
@@ -548,7 +578,6 @@ let g:coc_global_extensions = [
       \'coc-json',
       \'coc-dictionary',
       \'coc-tag',
-      \'coc-git',
       \'coc-snippets',
       \'coc-lists',
       \'coc-syntax',
@@ -607,8 +636,8 @@ command! -nargs=0 -range D      :CocCommand
 command! -nargs=0 Todos         :CocList -A --normal grep -e TODO|FIXME
 command! -nargs=0 Status        :CocList -A --normal gstatus
 command! -nargs=+ Find          :exe 'CocList -A --normal grep --smart-case '.<q-args>
-command! -nargs=0 Format        :call CocAction('format')
-command! -nargs=0 GitChunkUndo  :call CocAction('runCommand', 'git.chunkUndo')
+" command! -nargs=0 Format        :call CocAction('format')
+" command! -nargs=0 GitChunkUndo  :call CocAction('runCommand', 'git.chunkUndo')
 command! -nargs=0 OR            :call CocAction('runCommand', 'editor.action.organizeImport')
 
 autocmd CursorHold * silent call CocActionAsync('highlight')
@@ -623,10 +652,11 @@ nmap <silent> gn <Plug>(coc-rename)
 nmap <silent> ge <Plug>(coc-diagnostic-next)
 nmap <silent> ga <Plug>(coc-codeaction)
 nmap <silent> gl <Plug>(coc-codelens-action)
-nmap <silent> gs <Plug>(coc-git-chunkinfo)
-nmap <silent> gm <Plug>(coc-git-commit)
-omap <silent> ig <Plug>(coc-git-chunk-inner)
-xmap <silent> ig <Plug>(coc-git-chunk-inner)
+" nmap <silent> gs <Plug>(coc-git-chunkinfo)
+" nmap <silent> gm <Plug>(coc-git-commit)
+" omap <silent> ig <Plug>(coc-git-chunk-inner)
+
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
 
 inoremap <silent><expr> <S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 inoremap <silent><expr> <c-space> coc#refresh()
