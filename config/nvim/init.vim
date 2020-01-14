@@ -86,7 +86,7 @@ set signcolumn=yes
 
 " better navigation
 set cursorline
-set foldmethod    =syntax
+set foldmethod    =marker
 set foldopen     +=jump
 set foldtext      =mhi#foldy()
 set foldlevelstart=99
@@ -346,35 +346,6 @@ command! RM call functions#Delete() <Bar> q!
 " ColorScheme {{{1
 colorscheme forest-night
 
-
-let g:currentmode={
-       \ 'n'  : 'NORMAL ',
-       \ 'v'  : 'VISUAL ',
-       \ 'V'  : 'V·Line ',
-       \ '' : 'V·Block ',
-       \ 'i'  : 'INSERT ',
-       \ 'R'  : 'R ',
-       \ 'Rv' : 'V·Replace ',
-       \ 'c'  : 'Command ',
-       \}
-hi User1 guifg=#eea040 guibg=#222222
-hi User2 guifg=#dd3333 guibg=#222222
-hi User3 guifg=#ff66ff guibg=#222222
-hi User4 guifg=#a0ee40 guibg=#222222
-hi User5 guifg=#eeee40 guibg=#222222
-
-
-set statusline=
-set statusline+=\ %{toupper(g:currentmode[mode()])}
-set statusline+=%{&modified?'[+]':''}
-set statusline+=%-7([%{&fileformat}]%)
-set statusline+=%#Warnings#
-set statusline+=%{&bomb?'[BOM]':''}
-set statusline+=%2* " use highlight group User2
-set statusline+=%*
-set statusline+=%{&filetype!=#''?&filetype.'\ ':'none\ '}
-set statusline+=%2p%%
-
 " Statusline {{{1
 function! s:statusline_expr()
   let mod = "%{&modified ? '[+] ' : !&modifiable ? '[x] ' : ''}"
@@ -388,8 +359,7 @@ function! s:statusline_expr()
 
   return '[%n] %f %<'.mod.ro.ft.fug.stat.sep.pos.'%*'.pct
 endfunction
-" let &statusline = s:statusline_expr()
-
+let &statusline = s:statusline_expr()
 
 " Plugin {{{1
 " Plugin: exception {{{2
@@ -514,7 +484,7 @@ nmap <silent> <leader>k :call ToggleNerdTree()<cr>
 " Plugin: undotree {{{2
 nnoremap <f3>  :UndotreeToggle<cr>
 
-"termguicolors Plugin: vim-easy-align {{{2
+" Plugin: vim-easy-align {{{2
 " xmap <cr> <plug>(LiveEasyAlign)
 
 " Plugin: vim-easymotion {{{2
