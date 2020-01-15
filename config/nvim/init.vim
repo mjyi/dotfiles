@@ -75,6 +75,9 @@ set softtabstop   =4
 set shiftwidth    =4
 set shiftround
 
+set encoding=utf-8 nobomb
+set fileencodings=utf-8,gbk,utf-16le,cp1252,iso-8859-15,ucs-bom
+
 set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 
