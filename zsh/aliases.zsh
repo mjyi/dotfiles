@@ -1,13 +1,6 @@
 # reload zsh config
 alias reload!='RELOAD=1 source ~/.zshrc'
 
-# Detect which `ls` flavor is in use
-if ls --color > /dev/null 2>&1; then # GNU `ls`
-    colorflag="--color"
-else # macOS `ls`
-    colorflag="-G"
-fi
-
 # use nvim, but don't make me think about it
 alias vim="nvim"
 
@@ -21,11 +14,6 @@ alias .....="cd ../../../.."
 
 alias which='type -p'
 
-
-alias l="ls -lah ${colorflag}"
-alias la="ls -AF ${colorflag}"
-alias ll="ls -lFh ${colorflag}"
-alias lld="ls -l | grep ^d"
 alias rmf="rm -rf"
 
 # Helpers
@@ -79,3 +67,17 @@ alias chrome="/Applications/Google\\ \\Chrome.app/Contents/MacOS/Google\\ \\Chro
 alias canary="/Applications/Google\\ Chrome\\ Canary.app/Contents/MacOS/Google\\ Chrome\\ Canary"
 
 alias pcat='pygmentize -f terminal256 -O style=native -g'
+
+# Proxy
+alias hproxy="export http_proxy=http://127.0.0.1:1087;export https_proxy=http://127.0.0.1:1087"
+alias unhproxy="unset http_proxy;unset https_proxy"
+
+# New Commands
+alias cat='bat -p'
+
+# Replace ls with exa
+alias ls='exa'
+alias l='ls -l'
+alias la='ls -a'
+alias lla='ls -la'
+alias lt='ls -T'

@@ -543,6 +543,9 @@ let g:go_highlight_methods = 1
 let g:go_highlight_structs = 1
 let g:go_fmt_command = "goimports"
 
+let g:go_def_mode='gopls'
+let g:go_info_mode='gopls'
+
 " Plugin: vim-rust {{{2
 " let g:rustfmt_autosave = 1
 

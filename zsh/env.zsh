@@ -10,9 +10,9 @@ export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 export GOPROXY=https://goproxy.io
 
 # MonkeyDev path
-export MonkeyDevDeviceIP=
-export PATH=/opt/MonkeyDev/bin:$PATH
-export MonkeyDevPath=/opt/MonkeyDev
+# export MonkeyDevDeviceIP=
+# export PATH=/opt/MonkeyDev/bin:$PATH
+# export MonkeyDevPath=/opt/MonkeyDev
 
 # theos
 export THEOS=/opt/theos 
@@ -22,7 +22,7 @@ export PATH=/opt/theos/bin/:$PATH
 export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
 
 # Flutter
-export PATH="/Users/mervin/development/flutter/bin:$PATH"
+# export PATH="/Users/mervin/development/flutter/bin:$PATH"
 
 # NVM
 # export NVM_DIR="/Users/mervin/.nvm"
@@ -41,13 +41,4 @@ eval "$(rbenv init -)"
 # Haskell
 source $HOME/.ghcup/env
 
-# Proxy
-alias hproxy="export http_proxy=http://127.0.0.1:1087;export https_proxy=http://127.0.0.1:1087"
-alias unhproxy="unset http_proxy;unset https_proxy"
 
-alias cat='bat -p'
-alias ls='lsd'
-alias l='ls -l'
-alias la='ls -a'
-alias lla='ls -la'
-alias lt='ls --tree'
