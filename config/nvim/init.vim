@@ -48,7 +48,7 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'haya14busa/incsearch.vim'
   Plug 'haya14busa/incsearch-fuzzy.vim'
   Plug 'haya14busa/incsearch-easymotion.vim'
-  Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install() }}
+  Plug 'neoclide/coc.nvim', {'branch': 'release'}
   Plug 'honza/vim-snippets'
   Plug 'rust-lang/rust.vim', {'for': 'rust'}
   Plug 'lifepillar/pgsql.vim', {'for': 'sql'}
@@ -347,6 +347,8 @@ command! Rm call functions#Delete()
 command! RM call functions#Delete() <Bar> q!
 
 " ColorScheme {{{1
+let g:forest_night_enable_italic = 1
+let g:forest_night_disable_italic_comment = 1
 colorscheme forest-night
 
 " Statusline {{{1

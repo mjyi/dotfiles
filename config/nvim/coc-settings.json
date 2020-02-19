@@ -19,5 +19,5 @@
             }
         }
     },
-    "rust-analyzer.enableCargoWatchOnStartup": "enabled"
+    "rust-analyzer.raLspServerPath": "~/.cargo/bin/ra_lsp_server"
 }
