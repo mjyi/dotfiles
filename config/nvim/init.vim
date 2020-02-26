@@ -18,7 +18,11 @@ endif
 " Plug {{{1
 call functions#PlugLoad()
 call plug#begin('~/.config/nvim/plugged')
+  " Colors
   Plug 'sainnhe/vim-color-forest-night'
+  " Plug 'arcticicestudio/nord-vim'
+   " Plug 'nightsense/cosmic_latte'
+  
   Plug 'pacha/vem-tabline'
   Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] }
   Plug 'Xuyuanp/nerdtree-git-plugin'
@@ -357,12 +361,11 @@ function! s:statusline_expr()
   let ro  = "%{&readonly ? '[RO] ' : ''}"
   let ft  = "%{len(&filetype) ? '['.&filetype.'] ' : ''}"
   let fug = "%{exists('g:loaded_fugitive') ? fugitive#statusline() : ''}"
-  let stat = mhi#sy_stats_wrapper()
   let sep = ' %= '
   let pos = ' %-12(%l : %c%V%) '
   let pct = ' %P '
 
-  return '[%n] %f %<'.mod.ro.ft.fug.stat.sep.pos.'%*'.pct
+  return '[%n] %f %<'.mod.ro.ft.fug.sep.pos.'%*'.pct
 endfunction
 let &statusline = s:statusline_expr()
 
