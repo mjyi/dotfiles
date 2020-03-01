@@ -9,8 +9,12 @@ echo "Installing dotfiles."
 echo "Initializing submodule(s)"
 git submodule update --init --recursive
 
-echo "Initializing zplugin"
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma/zplugin/master/doc/install.sh)"
+# echo "Initializing zplugin"
+# sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma/zplugin/master/doc/install.sh)"
+
+echo "Initializing Zinit"
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma/zinit/master/doc/install.sh)"
+
 
 source install/link.sh
 source install/git.sh

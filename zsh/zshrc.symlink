@@ -83,18 +83,17 @@ export LESS_TERMCAP_mh=$(tput dim)
 #
 # export SHELLCHECK_OPTS=""
 
-### Added by Zplugin's installer
-source ~/.zplugin/bin/zplugin.zsh
-autoload -Uz _zplugin
-(( ${+_comps} )) && _comps[zplugin]=_zplugin
-# zplugin light romkatv/powerlevel10k
-zplugin light zdharma/fast-syntax-highlighting
-zplugin light zsh-users/zsh-autosuggestions
-# zplugin ice lucid wait"1"; zplugin light peterhurford/git-it-on.zsh
-zplugin ice lucid wait"0" blockf; zplugin light zsh-users/zsh-completions
-# zplugin snippet https://github.com/sainnhe/vim-color-forest-night/blob/master/zsh/.zsh-pure-power
-# source "$ZSH/zsh-theme"
+
+## ADD Zinit Plugin Manager
+source ~/.zinit/bin/zinit.zsh
+
+zinit light zsh-users/zsh-autosuggestions
+zinit light zdharma/fast-syntax-highlighting
+
+# Plugin history-search-multi-word loaded with tracking.
+zinit load zdharma/history-search-multi-word
+
+
+## End
 
 eval "$(starship init zsh)"
-
-### End of Zplugin's installer chunk
