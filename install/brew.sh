@@ -21,7 +21,6 @@ formulas=(
     mas
     neovim
     node
-    python
     reattach-to-user-namespace
     the_silver_searcher
     shellcheck
@@ -29,7 +28,6 @@ formulas=(
     trash
     tree
     wget
-    vim
     z
     zsh
     ripgrep

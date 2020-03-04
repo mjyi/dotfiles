@@ -9,6 +9,8 @@ Welcome to my world. This is a collection of vim/nvim, tmux, and zsh configurati
 ./install.sh
 ```
 
+## Formulas
+
 see `install/brew.sh` on Mac
 
 ## Vim & NVim
