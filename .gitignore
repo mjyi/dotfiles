@@ -11,4 +11,4 @@ config/nvim/plugged
 config/nvim/autoload/plug.vim
 vim/vim.symlink/spell/
 vim/vim.symlink/plugged/
-zsh/env.sh
+zsh/env.zsh

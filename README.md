@@ -1,6 +1,7 @@
 # Dotfiles
 
-Welcome to my world. This is a collection of vim/nvim, tmux, and zsh configurations. 
+Welcome to my world. This is a collection of vim/nvim, tmux, and zsh configurations on mac.
+
 
 ## Installation
 
@@ -8,9 +9,9 @@ Welcome to my world. This is a collection of vim/nvim, tmux, and zsh configurati
 ./install.sh
 ```
 
-see `install/brew.sh` on Mac 
+see `install/brew.sh` on Mac
 
-## VIM
+## Vim & NVim
 vim and neovim should just work once the correct plugins are installed. To install the plugins, you will need to open Neovim in the following way:
 
 ```bash
@@ -19,5 +20,9 @@ vim and neovim should just work once the correct plugins are installed. To insta
 
 ## Font
 
-For free programming font, check out Mozilla's [Fira](http://mozilla.github.io/Fira/). In addition to this, I do have [nerd-fonts](https://github.com/ryanoasis/nerd-fonts) installed and configured to be used for non-ascii characters via iTerm2's profile settings. If you would prefer not to do this, then simply remove the `Plug 'ryanoasis/vim-devicons'` plugin from vim/nvim.
+Recommend fonts
+
+- [Fira](http://mozilla.github.io/Fira/)
+- [JetBrains Mono](https://www.jetbrains.com/lp/mono/)
+- [nerd-fonts](https://github.com/ryanoasis/nerd-fonts)
 

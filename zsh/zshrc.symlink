@@ -97,3 +97,4 @@ zinit load zdharma/history-search-multi-word
 ## End
 
 eval "$(starship init zsh)"
+### End of Zinit's installer chunk
