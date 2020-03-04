@@ -19,5 +19,5 @@
             }
         }
     },
-    "rust-analyzer.raLspServerPath": "~/.cargo/bin/ra_lsp_server"
+    "rust-analyzer.serverPath": "~/.cargo/bin/ra_lsp_server"
 }
