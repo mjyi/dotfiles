@@ -17,7 +17,6 @@ formulas=(
     highlight
     hub
     markdown
-    mas
     neovim
     node
     reattach-to-user-namespace
