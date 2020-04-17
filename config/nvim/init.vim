@@ -19,11 +19,12 @@ endif
 call functions#PlugLoad()
 call plug#begin('~/.config/nvim/plugged')
 " Colors
-Plug 'sainnhe/vim-color-forest-night'
-" Plug 'arcticicestudio/nord-vim'
-" Plug 'nightsense/cosmic_latte'
+Plug 'sainnhe/forest-night'
 
-Plug 'pacha/vem-tabline'
+
+Plug 'vim-airline/vim-airline'
+
+" Plug 'pacha/vem-tabline'
 Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] }
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'ryanoasis/vim-devicons'
@@ -54,16 +55,17 @@ Plug 'haya14busa/incsearch-fuzzy.vim'
 Plug 'haya14busa/incsearch-easymotion.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'honza/vim-snippets'
-Plug 'rust-lang/rust.vim', {'for': 'rust'}
-Plug 'lifepillar/pgsql.vim', {'for': 'sql'}
-Plug 'cespare/vim-toml'
+
 Plug 'AndrewRadev/tagalong.vim', {'for': 'html'}
-Plug 'fatih/vim-go', { 'for': 'go' }
+Plug 'sheerun/vim-polyglot'
+
 Plug 'Chiel92/vim-autoformat'
 Plug 'vim-pandoc/vim-pandoc'
 Plug 'vim-pandoc/vim-pandoc-syntax'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
+
+Plug 'tweekmonster/startuptime.vim'
 call plug#end()
 
 " }}}1
@@ -356,18 +358,19 @@ let g:forest_night_disable_italic_comment = 1
 colorscheme forest-night
 
 " Statusline {{{1
-function! s:statusline_expr()
-    let mod = "%{&modified ? '[+] ' : !&modifiable ? '[x] ' : ''}"
-    let ro  = "%{&readonly ? '[RO] ' : ''}"
-    let ft  = "%{len(&filetype) ? '['.&filetype.'] ' : ''}"
-    let fug = "%{exists('g:loaded_fugitive') ? fugitive#statusline() : ''}"
-    let sep = ' %= '
-    let pos = ' %-12(%l : %c%V%) '
-    let pct = ' %P '
+" function! s:statusline_expr()
+"     let mod = "%{&modified ? '[+] ' : !&modifiable ? '[x] ' : ''}"
+"     let ro  = "%{&readonly ? '[RO] ' : ''}"
+"     let ft  = "%{len(&filetype) ? '['.&filetype.'] ' : ''}"
+"     let fug = "%{exists('g:loaded_fugitive') ? fugitive#statusline() : ''}"
+"     let sep = ' %= '
+"     let pos = ' %-12(%l : %c%V%) '
+"     let pct = ' %P '
 
-    return '[%n] %f %<'.mod.ro.ft.fug.sep.pos.'%*'.pct
-endfunction
-let &statusline = s:statusline_expr()
+"     return '[%n] %f %<'.mod.ro.ft.fug.sep.pos.'%*'.pct
+" endfunction
+" let &statusline = s:statusline_expr()
+
 
 " Plugin {{{1
 " Plugin: exception {{{2
@@ -379,8 +382,6 @@ let g:netrw_list_hide = ',\(^\|\s\s\)\zs\.\S\+'
 let g:netrw_winsize=20
 let g:netrw_liststyle=3
 
-" Plugin: vem-tabline {{{2
-let g:vem_tabline_show = 2
 
 " Plugin: vim-bbye {{{2
 nnoremap <leader>b :Bdelete<cr>
@@ -550,10 +551,7 @@ let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
 " let g:go_highlight_operators = 1
 let g:go_highlight_structs = 1
-let g:go_fmt_command = "goimports"
 
-let g:go_def_mode='gopls'
-let g:go_info_mode='gopls'
 
 " Plugin: vim-rust {{{2
 " let g:rustfmt_autosave = 1
@@ -663,6 +661,23 @@ nnoremap <silent> <space>j  :<C-u>CocNext<CR>
 nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 nnoremap <silent> <space>s  :exe 'CocList -A -I --normal --input='.expand('<cword>').' words'<CR>
 nnoremap <silent> <space>S  :exe 'CocList -A --normal grep '.expand('<cword>').''<CR>
+
+
+" Plugin: vim-airline {{{2
+let g:airline_theme = 'forest_night'
+let g:airline_powerline_fonts = 1
+
+let g:airline#extensions#tabline#enabled = 1           " enable airline tabline                                                           
+let g:airline#extensions#tabline#show_close_button = 0 " remove 'X' at the end of the tabline                                            
+let g:airline#extensions#tabline#tabs_label = ''       " can put text here like BUFFERS to denote buffers (I clear it so nothing is shown)
+let g:airline#extensions#tabline#buffers_label = ''    " can put text here like TABS to denote tabs (I clear it so nothing is shown)      
+let g:airline#extensions#tabline#fnamemod = ':t'       " disable file paths in the tab                                                    
+let g:airline#extensions#tabline#show_tab_count = 0    " dont show tab numbers on the right                                                           
+let g:airline#extensions#tabline#show_buffers = 0      " dont show buffers in the tabline                                                 
+let g:airline#extensions#tabline#tab_min_count = 2     " minimum of 2 tabs needed to display the tabline                                  
+let g:airline#extensions#tabline#show_splits = 0       " disables the buffer name that displays on the right of the tabline               
+let g:airline#extensions#tabline#show_tab_nr = 0       " disable tab numbers                                                              
+let g:airline#extensions#tabline#show_tab_type = 0     " disables the weird ornage arrow on the tabline
 
 " }}}1
 
