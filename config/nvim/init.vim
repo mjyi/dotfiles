@@ -11,59 +11,59 @@ endif
 
 filetype indent plugin on
 if !exists('g:syntax_on')
-  syntax enable
+    syntax enable
 endif
 
 "}}}
 " Plug {{{1
 call functions#PlugLoad()
 call plug#begin('~/.config/nvim/plugged')
-  " Colors
-  Plug 'sainnhe/vim-color-forest-night'
-  " Plug 'arcticicestudio/nord-vim'
-   " Plug 'nightsense/cosmic_latte'
-  
-  Plug 'pacha/vem-tabline'
-  Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] }
-  Plug 'Xuyuanp/nerdtree-git-plugin'
-  Plug 'ryanoasis/vim-devicons'
-  Plug 'jiangmiao/auto-pairs'
-  Plug 'AndrewRadev/splitjoin.vim'
-  Plug 'tpope/vim-commentary'
-  Plug 'tpope/vim-surround'
-  Plug 'tpope/vim-repeat'
-  Plug 'tpope/vim-fugitive'
-  Plug 'tpope/vim-sleuth'
-  Plug 'tpope/vim-rhubarb'
-  Plug 'benmills/vimux'
-  Plug 'mhinz/vim-janah'
-  Plug 'mhinz/vim-signify'
-  Plug 'mhinz/vim-startify'
-  Plug '/usr/local/opt/fzf'
-  Plug 'junegunn/fzf.vim'
-  Plug 'junegunn/gv.vim', {'on': 'GV'}
-  Plug 'junegunn/vim-easy-align', {'on': '<plug>(LiveEasyAlign)'}
-  Plug 'justinmk/vim-dirvish'
-  Plug 'rhysd/committia.vim'
-  Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
-  Plug 'mbbill/undotree', {'on': 'UndotreeToggle'}
-  Plug 'moll/vim-bbye'
-  Plug 'easymotion/vim-easymotion'
-  Plug 'haya14busa/incsearch.vim'
-  Plug 'haya14busa/incsearch-fuzzy.vim'
-  Plug 'haya14busa/incsearch-easymotion.vim'
-  Plug 'neoclide/coc.nvim', {'branch': 'release'}
-  Plug 'honza/vim-snippets'
-  Plug 'rust-lang/rust.vim', {'for': 'rust'}
-  Plug 'lifepillar/pgsql.vim', {'for': 'sql'}
-  Plug 'cespare/vim-toml'
-  Plug 'AndrewRadev/tagalong.vim', {'for': 'html'}
-  Plug 'fatih/vim-go', { 'for': 'go' }
-  Plug 'Chiel92/vim-autoformat'
-  Plug 'vim-pandoc/vim-pandoc'
-  Plug 'vim-pandoc/vim-pandoc-syntax'
-  Plug 'terryma/vim-multiple-cursors'
-  Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
+" Colors
+Plug 'sainnhe/vim-color-forest-night'
+" Plug 'arcticicestudio/nord-vim'
+" Plug 'nightsense/cosmic_latte'
+
+Plug 'pacha/vem-tabline'
+Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] }
+Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'ryanoasis/vim-devicons'
+Plug 'jiangmiao/auto-pairs'
+Plug 'AndrewRadev/splitjoin.vim'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-sleuth'
+Plug 'tpope/vim-rhubarb'
+Plug 'benmills/vimux'
+Plug 'mhinz/vim-janah'
+Plug 'mhinz/vim-signify'
+Plug 'mhinz/vim-startify'
+Plug '/usr/local/opt/fzf'
+Plug 'junegunn/fzf.vim'
+Plug 'junegunn/gv.vim', {'on': 'GV'}
+Plug 'junegunn/vim-easy-align', {'on': '<plug>(LiveEasyAlign)'}
+Plug 'justinmk/vim-dirvish'
+Plug 'rhysd/committia.vim'
+Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
+Plug 'mbbill/undotree', {'on': 'UndotreeToggle'}
+Plug 'moll/vim-bbye'
+Plug 'easymotion/vim-easymotion'
+Plug 'haya14busa/incsearch.vim'
+Plug 'haya14busa/incsearch-fuzzy.vim'
+Plug 'haya14busa/incsearch-easymotion.vim'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'honza/vim-snippets'
+Plug 'rust-lang/rust.vim', {'for': 'rust'}
+Plug 'lifepillar/pgsql.vim', {'for': 'sql'}
+Plug 'cespare/vim-toml'
+Plug 'AndrewRadev/tagalong.vim', {'for': 'html'}
+Plug 'fatih/vim-go', { 'for': 'go' }
+Plug 'Chiel92/vim-autoformat'
+Plug 'vim-pandoc/vim-pandoc'
+Plug 'vim-pandoc/vim-pandoc-syntax'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
 call plug#end()
 
 " }}}1
@@ -154,9 +154,9 @@ set wildignore   +=*.o,*.so,*.zip,*.png
 set wildmenu
 set wildoptions   =tagfile
 if has('nvim-0.4.0')
-  set wildoptions+=pum
+    set wildoptions+=pum
 else
-  set wildmode=list:longest,full
+    set wildmode=list:longest,full
 endif
 
 " display settings
@@ -184,21 +184,21 @@ set cpoptions     =aABcefFqsZ
 set formatoptions =tcrqnj
 
 if has('multi_byte') && &encoding ==# 'utf-8'
-  let &listchars = 'tab:▸ ,extends:❯,precedes:❮,nbsp:±'
-  let &fillchars = 'vert:|,diff: '  " ▚
-  let &showbreak = '↪ '
-  augroup vimrc
-    autocmd InsertEnter * set listchars-=trail:⣿
-    autocmd InsertLeave * set listchars+=trail:⣿
-  augroup END
+    let &listchars = 'tab:▸ ,extends:❯,precedes:❮,nbsp:±'
+    let &fillchars = 'vert:|,diff: '  " ▚
+    let &showbreak = '↪ '
+    augroup vimrc
+        autocmd InsertEnter * set listchars-=trail:⣿
+        autocmd InsertLeave * set listchars+=trail:⣿
+    augroup END
 else
-  let &listchars = 'tab:> ,extends:>,precedes:<,nbsp:.'
-  let &fillchars = 'vert: ,stlnc:#'
-  let &showbreak = '-> '
-  augroup vimrc
-    autocmd InsertEnter * set listchars-=trail:.
-    autocmd InsertLeave * set listchars+=trail:.
-  augroup END
+    let &listchars = 'tab:> ,extends:>,precedes:<,nbsp:.'
+    let &fillchars = 'vert: ,stlnc:#'
+    let &showbreak = '-> '
+    augroup vimrc
+        autocmd InsertEnter * set listchars-=trail:.
+        autocmd InsertLeave * set listchars+=trail:.
+    augroup END
 endif
 
 if (has('nvim'))
@@ -213,7 +213,7 @@ set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
 
 if &term =~ '256color'
     " disable background color erase
-  set t_ut=
+    set t_ut=
 endif
 
 " enable 24 bit color support if supported
@@ -313,21 +313,21 @@ onoremap <silent> al :<c-u>normal! $v0<cr>
 
 " Autocmd {{{1
 augroup vimrc
-  if has('nvim')
-    autocmd TermOpen,BufEnter term://* startinsert
-  endif
+    if has('nvim')
+        autocmd TermOpen,BufEnter term://* startinsert
+    endif
 
-  autocmd BufReadPost *
-        \ if line("'\"") > 1 && line("'\"") <= line("$") |
-        \   execute 'normal! g`"zvzz' |
-        \ endif
+    autocmd BufReadPost *
+                \ if line("'\"") > 1 && line("'\"") <= line("$") |
+                \   execute 'normal! g`"zvzz' |
+                \ endif
 
-  autocmd WinEnter    * set cursorline
-  autocmd WinLeave    * set nocursorline
-  autocmd InsertEnter * set nocursorline
-  autocmd InsertLeave * set cursorline
+    autocmd WinEnter    * set cursorline
+    autocmd WinLeave    * set nocursorline
+    autocmd InsertEnter * set nocursorline
+    autocmd InsertLeave * set cursorline
 
-  autocmd CompleteDone * pclose
+    autocmd CompleteDone * pclose
 augroup END
 
 augroup configgroup
@@ -357,15 +357,15 @@ colorscheme forest-night
 
 " Statusline {{{1
 function! s:statusline_expr()
-  let mod = "%{&modified ? '[+] ' : !&modifiable ? '[x] ' : ''}"
-  let ro  = "%{&readonly ? '[RO] ' : ''}"
-  let ft  = "%{len(&filetype) ? '['.&filetype.'] ' : ''}"
-  let fug = "%{exists('g:loaded_fugitive') ? fugitive#statusline() : ''}"
-  let sep = ' %= '
-  let pos = ' %-12(%l : %c%V%) '
-  let pct = ' %P '
+    let mod = "%{&modified ? '[+] ' : !&modifiable ? '[x] ' : ''}"
+    let ro  = "%{&readonly ? '[RO] ' : ''}"
+    let ft  = "%{len(&filetype) ? '['.&filetype.'] ' : ''}"
+    let fug = "%{exists('g:loaded_fugitive') ? fugitive#statusline() : ''}"
+    let sep = ' %= '
+    let pos = ' %-12(%l : %c%V%) '
+    let pct = ' %P '
 
-  return '[%n] %f %<'.mod.ro.ft.fug.sep.pos.'%*'.pct
+    return '[%n] %f %<'.mod.ro.ft.fug.sep.pos.'%*'.pct
 endfunction
 let &statusline = s:statusline_expr()
 
@@ -529,6 +529,10 @@ endfunction
 noremap <silent><expr> <Space>/ incsearch#go(<SID>config_easyfuzzymotion())
 
 
+" Plugin: vim-autoformat {{{2
+noremap <F8> :Autoformat<CR>
+
+
 " Plugin: vim-pandoc {{{2
 let g:pandoc#spell#enabled = 0
 augroup pandoc_syntax
@@ -556,56 +560,56 @@ let g:go_info_mode='gopls'
 
 " Plugin: coc.nvim {{{2
 let g:coc_global_extensions = [
-      \'coc-json',
-      \'coc-dictionary',
-      \'coc-tag',
-      \'coc-snippets',
-      \'coc-lists',
-      \'coc-syntax',
-      \'coc-word',
-      \'coc-lines',
-      \'coc-rust-analyzer'
-      \]
+            \'coc-json',
+            \'coc-dictionary',
+            \'coc-tag',
+            \'coc-snippets',
+            \'coc-lists',
+            \'coc-syntax',
+            \'coc-word',
+            \'coc-lines',
+            \'coc-rust-analyzer'
+            \]
 
 function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
 function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    call CocActionAsync('doHover')
-  endif
+    if (index(['vim','help'], &filetype) >= 0)
+        execute 'h '.expand('<cword>')
+    else
+        call CocActionAsync('doHover')
+    endif
 endfunction
 
 function! s:GoToDefinition()
-  if CocAction('jumpDefinition')
-    return v:true
-  endif
+    if CocAction('jumpDefinition')
+        return v:true
+    endif
 
-  let ret = execute("silent! normal \<C-]>")
-  if ret =~ "Error" || ret =~ "错误"
-    call searchdecl(expand('<cword>'))
-  endif
+    let ret = execute("silent! normal \<C-]>")
+    if ret =~ "Error" || ret =~ "错误"
+        call searchdecl(expand('<cword>'))
+    endif
 endfunction
 
 function! s:select_current_word()
-  if !get(g:, 'coc_cursors_activated', 0)
-    return "\<Plug>(coc-cursors-word)"
-  endif
-  return "*\<Plug>(coc-cursors-word):nohlsearch\<CR>"
+    if !get(g:, 'coc_cursors_activated', 0)
+        return "\<Plug>(coc-cursors-word)"
+    endif
+    return "*\<Plug>(coc-cursors-word):nohlsearch\<CR>"
 endfunc
 
 function! CopyFloatText() abort
-  let id = win_getid()
-  let winid = coc#util#get_float()
-  if winid
-    call win_gotoid(winid)
-    execute 'normal! ggvGy'
-    call win_gotoid(id)
-  endif
+    let id = win_getid()
+    let winid = coc#util#get_float()
+    if winid
+        call win_gotoid(winid)
+        execute 'normal! ggvGy'
+        call win_gotoid(id)
+    endif
 endfunction
 
 " Command
@@ -642,9 +646,9 @@ nmap <silent> [g <Plug>(coc-diagnostic-prev)
 inoremap <silent><expr> <S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 inoremap <silent><expr> <c-space> coc#refresh()
 inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
+            \ pumvisible() ? "\<C-n>" :
+            \ <SID>check_back_space() ? "\<TAB>" :
+            \ coc#refresh()
 
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 nnoremap <silent> <space>o  :<C-u>CocList -A outline<CR>

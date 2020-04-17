@@ -11,13 +11,22 @@
         "ccls": {
             "command": "ccls",
             "filetypes": ["c", "cpp", "objc", "objcpp"],
-            "rootPatterns": [".ccls", "compile_commands.json", ".vim/", ".git/", ".hg/"],
+            "rootPatterns": [".ccls", "compile_commands.json"],
             "initializationOptions": {
                 "cache": {
                     "directory": "/tmp/ccls"
+                },
+                "clang": {
+                    "resourceDir": "/Library/Developer/CommandLineTools/usr/lib/clang/11.0.0",
+                    "extraArgs": [
+                        "-isystem",
+                        "/Library/Developer/CommandLineTools/usr/include/c++/v1",
+                        "-I",
+                        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/"
+                    ]
                 }
             }
         }
     },
-    "rust-analyzer.serverPath": "~/.cargo/bin/ra_lsp_server"
+    "rust-analyzer.serverPath": "~/.cargo/bin/rust-analyzer"
 }
