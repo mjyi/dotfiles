@@ -26,7 +26,33 @@
                     ]
                 }
             }
+        },
+        "elixirLS": {
+            "command": "/Users/mervin/develop/elixir-ls/rel/language_server.sh",
+            "filetypes": ["elixir", "eelixir"]
+        },
+        "haskell": {
+            "command": "hie-wrapper",
+            "args": ["--lsp"],
+            "rootPatterns": [
+                "*.cabal",
+                "stack.yaml",
+                "cabal.project",
+                "package.yaml"
+            ],
+            "filetypes": [
+                "hs",
+                "lhs",
+                "haskell"
+            ],
+            "initializationOptions": {
+                "languageServerHaskell": {
+                    "hlintOn": true
+                }
+            }
         }
     },
+    "python.linting.pylintEnabled": false,
+    "python.linting.flake8Enabled": true,
     "rust-analyzer.serverPath": "~/.cargo/bin/rust-analyzer"
 }

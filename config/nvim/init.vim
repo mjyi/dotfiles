@@ -21,10 +21,8 @@ call plug#begin('~/.config/nvim/plugged')
 " Colors
 Plug 'sainnhe/forest-night'
 
-
 Plug 'vim-airline/vim-airline'
 
-" Plug 'pacha/vem-tabline'
 Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] }
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'ryanoasis/vim-devicons'
@@ -58,6 +56,7 @@ Plug 'honza/vim-snippets'
 
 Plug 'AndrewRadev/tagalong.vim', {'for': 'html'}
 Plug 'sheerun/vim-polyglot'
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
 Plug 'Chiel92/vim-autoformat'
 Plug 'vim-pandoc/vim-pandoc'
@@ -453,8 +452,8 @@ let g:startify_commands = [
             \ ]
 
 let g:startify_bookmarks = [
-            \ { 'c': '~/code/dotfiles/config/nvim/init.vim' },
-            \ { 'z': '~/code/dotfiles/zsh/zshrc.symlink' }
+            \ { 'c': '~/.dotfiles/config/nvim/init.vim' },
+            \ { 'z': '~/.dotfiles/zsh/zshrc.symlink' }
             \ ]
 
 autocmd User Startified setlocal cursorline

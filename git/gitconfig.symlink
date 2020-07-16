@@ -1,6 +1,6 @@
 # gitconfig
 [user]
-	name = June
+	name = Fish_
 	email = liumy.f@outlook.com
 [github]
 	user = mjyi
@@ -143,7 +143,7 @@
     # do not warn about missing whitespace at EOF
     whitespace = nowarn
 [core]
-    excludesfile = ~/.gitignore_global
+	excludesfile = /Users/mervin/.gitignore_global
     pager = less -FXRS -x2
     editor = vim
     whitespace = cr-at-eol
@@ -171,3 +171,5 @@
 [mergetool "sourcetree"]
 	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
 	trustExitCode = true
+[commit]
+	template = /Users/mervin/.stCommitMsg
