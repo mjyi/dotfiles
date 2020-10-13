@@ -18,41 +18,41 @@ endif
 " Plug {{{1
 call functions#PlugLoad()
 call plug#begin('~/.config/nvim/plugged')
-" Colors
-Plug 'sainnhe/forest-night'
 
+Plug 'sainnhe/forest-night'
 Plug 'vim-airline/vim-airline'
 
 Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] }
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'ryanoasis/vim-devicons'
+
 Plug 'jiangmiao/auto-pairs'
-Plug 'AndrewRadev/splitjoin.vim'
+
 Plug 'tpope/vim-commentary'
+
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-sleuth'
-Plug 'tpope/vim-rhubarb'
-Plug 'benmills/vimux'
-Plug 'mhinz/vim-janah'
-Plug 'mhinz/vim-signify'
+if has('nvim') || has('patch-8.0.902')
+  Plug 'mhinz/vim-signify'
+else
+  Plug 'mhinz/vim-signify', { 'branch': 'legacy' }
+endif
 Plug 'mhinz/vim-startify'
-Plug '/usr/local/opt/fzf'
-Plug 'junegunn/fzf.vim'
+
+Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' }
+
 Plug 'junegunn/gv.vim', {'on': 'GV'}
-Plug 'junegunn/vim-easy-align', {'on': '<plug>(LiveEasyAlign)'}
-Plug 'justinmk/vim-dirvish'
+Plug 'junegunn/vim-easy-align'
 Plug 'rhysd/committia.vim'
 Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
-Plug 'mbbill/undotree', {'on': 'UndotreeToggle'}
 Plug 'moll/vim-bbye'
+
 Plug 'easymotion/vim-easymotion'
 Plug 'haya14busa/incsearch.vim'
 Plug 'haya14busa/incsearch-fuzzy.vim'
 Plug 'haya14busa/incsearch-easymotion.vim'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'honza/vim-snippets'
 
 Plug 'AndrewRadev/tagalong.vim', {'for': 'html'}
 Plug 'sheerun/vim-polyglot'
@@ -65,6 +65,21 @@ Plug 'terryma/vim-multiple-cursors'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
 
 Plug 'tweekmonster/startuptime.vim'
+
+function! BuildYCM(info)
+  " info is a dictionary with 3 fields
+  " - name:   name of the plugin
+  " - status: 'installed', 'updated', or 'unchanged'
+  " - force:  set on PlugInstall! or PlugUpdate!
+  if a:info.status == 'installed' || a:info.force
+    !./install.py
+  endif
+endfunction
+
+Plug 'ycm-core/YouCompleteMe', { 'do': function('BuildYCM') }
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+
 call plug#end()
 
 " }}}1
@@ -86,7 +101,6 @@ set fileencodings=utf-8,gbk,utf-16le,cp1252,iso-8859-15,ucs-bom
 set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 
-" better coc.nvim
 set nobackup
 set nowritebackup
 set updatetime=200
@@ -113,6 +127,8 @@ set backspace     =indent,eol,start
 set clipboard     =unnamed
 set complete     -=i
 set completeopt  +=noselect
+set completeopt  -=preview
+" set completeopt=menu,menuone
 set cpoptions    -=e
 set diffopt      +=vertical,foldcolumn:0,indent-heuristic,algorithm:patience
 set fileformats   =unix,dos,mac
@@ -383,43 +399,8 @@ let g:netrw_liststyle=3
 
 
 " Plugin: vim-bbye {{{2
-nnoremap <leader>b :Bdelete<cr>
+nnoremap <leader>q :Bdelete<cr>
 
-" Plugin: fzf {{{2
-let g:fzf_layout = { 'down': '~25%' }
-
-nnoremap <leader><leader> :Buffers<cr>
-nnoremap <leader>f        :FZF<cr>
-nnoremap <silent><leader>s   :GFiles?<cr>
-
-if isdirectory(".git")
-    nmap <silent> <leader>t :GitFiles --cached --others --exclude-standard<cr>
-else
-    nmap <silent> <leader>t :FZF<cr>
-endif
-
-nnoremap <silent> <Leader>C :call fzf#run({
-            \   'source':
-            \     map(split(globpath(&rtp, "colors/*.vim"), "\n"),
-            \         "substitute(fnamemodify(v:val, ':t'), '\\..\\{-}$', '', '')"),
-            \   'sink':    'colo',
-            \   'options': '+m',
-            \   'left':    30
-            \ })<CR>
-
-command! FZFMru call fzf#run({
-            \  'source':  v:oldfiles,
-            \  'sink':    'e',
-            \  'options': '-m -x +s',
-            \  'down':    '40%'})
-
-command! -bang -nargs=* Find call fzf#vim#grep(
-            \ 'rg --column --line-number --no-heading --follow --color=always '.<q-args>, 1,
-            \ <bang>0 ? fzf#vim#with_preview('up:60%') : fzf#vim#with_preview('right:50%:hidden', '?'), <bang>0)
-command! -bang -nargs=? -complete=dir Files
-            \ call fzf#vim#files(<q-args>, fzf#vim#with_preview('right:50%', '?'), <bang>0)
-command! -bang -nargs=? -complete=dir GitFiles
-            \ call fzf#vim#gitfiles(<q-args>, fzf#vim#with_preview('right:50%', '?'), <bang>0)
 
 " Plugin: vim-startify {{{2
 nnoremap <leader>st :Startify<cr>
@@ -489,11 +470,12 @@ endfunction
 " toggle nerd tree
 nmap <silent> <leader>k :call ToggleNerdTree()<cr>
 
-" Plugin: undotree {{{2
-nnoremap <f3>  :UndotreeToggle<cr>
 
 " Plugin: vim-easy-align {{{2
-" xmap <cr> <plug>(LiveEasyAlign)
+xmap ga <Plug>(EasyAlign)
+
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
 
 " Plugin: vim-easymotion {{{2
 map  / <Plug>(easymotion-sn)
@@ -539,6 +521,7 @@ augroup pandoc_syntax
     au! BufNewFile,BufFilePre,BufRead *.md set filetype=markdown.pandoc
 augroup END
 
+
 " Plugin: vim-go {{{2
 let g:go_highlight_function_calls = 1
 let g:go_highlight_types = 1
@@ -552,114 +535,22 @@ let g:go_highlight_methods = 1
 let g:go_highlight_structs = 1
 
 
-" Plugin: vim-rust {{{2
-" let g:rustfmt_autosave = 1
+" Plugin: YouCompleteMe & Snippets
+let g:ycm_global_ycm_extra_conf='~/.ycm_extra_conf.py'
+let g:ycm_confirm_extra_conf=0
+let g:ycm_use_clangd = 0
 
-" Plugin: coc.nvim {{{2
-let g:coc_global_extensions = [
-            \'coc-json',
-            \'coc-dictionary',
-            \'coc-tag',
-            \'coc-snippets',
-            \'coc-lists',
-            \'coc-syntax',
-            \'coc-word',
-            \'coc-lines',
-            \'coc-rust-analyzer'
-            \]
+let g:ycm_add_preview_to_completeopt=0
+let g:ycm_max_num_candidates=50
 
-function! s:check_back_space() abort
-    let col = col('.') - 1
-    return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
+let g:UltiSnipsExpandTrigger="<C-j>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
-function! s:show_documentation()
-    if (index(['vim','help'], &filetype) >= 0)
-        execute 'h '.expand('<cword>')
-    else
-        call CocActionAsync('doHover')
-    endif
-endfunction
+let g:ycm_key_invoke_completion = '<C-Space>'
+let g:ycm_key_list_stop_completion = ['<C-y>']
 
-function! s:GoToDefinition()
-    if CocAction('jumpDefinition')
-        return v:true
-    endif
-
-    let ret = execute("silent! normal \<C-]>")
-    if ret =~ "Error" || ret =~ "错误"
-        call searchdecl(expand('<cword>'))
-    endif
-endfunction
-
-function! s:select_current_word()
-    if !get(g:, 'coc_cursors_activated', 0)
-        return "\<Plug>(coc-cursors-word)"
-    endif
-    return "*\<Plug>(coc-cursors-word):nohlsearch\<CR>"
-endfunc
-
-function! CopyFloatText() abort
-    let id = win_getid()
-    let winid = coc#util#get_float()
-    if winid
-        call win_gotoid(winid)
-        execute 'normal! ggvGy'
-        call win_gotoid(id)
-    endif
-endfunction
-
-" Command
-command! -nargs=0 C             :CocConfig
-command! -nargs=0 R             :CocRestart
-command! -nargs=0 L             :CocListResume
-command! -nargs=0 -range D      :CocCommand
-
-command! -nargs=0 Todos         :CocList -A --normal grep -e TODO|FIXME
-command! -nargs=0 Status        :CocList -A --normal gstatus
-command! -nargs=+ Find          :exe 'CocList -A --normal grep --smart-case '.<q-args>
-" command! -nargs=0 Format        :call CocAction('format')
-" command! -nargs=0 GitChunkUndo  :call CocAction('runCommand', 'git.chunkUndo')
-command! -nargs=0 OR            :call CocAction('runCommand', 'editor.action.organizeImport')
-
-autocmd CursorHold * silent call CocActionAsync('highlight')
-
-" Mappings
-nmap <silent> gd :call <SID>GoToDefinition()<CR>
-nmap <silent> gD <Plug>(coc-declaration)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-nmap <silent> gn <Plug>(coc-rename)
-nmap <silent> ge <Plug>(coc-diagnostic-next)
-nmap <silent> ga <Plug>(coc-codeaction)
-nmap <silent> gl <Plug>(coc-codelens-action)
-" nmap <silent> gs <Plug>(coc-git-chunkinfo)
-" nmap <silent> gm <Plug>(coc-git-commit)
-" omap <silent> ig <Plug>(coc-git-chunk-inner)
-
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-
-inoremap <silent><expr> <S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-inoremap <silent><expr> <c-space> coc#refresh()
-inoremap <silent><expr> <TAB>
-            \ pumvisible() ? "\<C-n>" :
-            \ <SID>check_back_space() ? "\<TAB>" :
-            \ coc#refresh()
-
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-nnoremap <silent> <space>o  :<C-u>CocList -A outline<CR>
-nnoremap <silent> <space>a  :<C-u>CocList diagnostics<CR>
-nnoremap <silent> <space>f  :<C-u>CocList files<CR>
-nnoremap <silent> <space>l  :<C-u>CocList locationlist<CR>
-nnoremap <silent> <space>q  :<C-u>CocList quickfix<CR>
-nnoremap <silent> <space>w  :<C-u>CocList -I -N symbols<CR>
-nnoremap <silent> <space>m  :<C-u>CocList -A -N mru<CR>
-nnoremap <silent> <space>b  :<C-u>CocList -A -N --normal buffers<CR>
-nnoremap <silent> <space>j  :<C-u>CocNext<CR>
-nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
-nnoremap <silent> <space>s  :exe 'CocList -A -I --normal --input='.expand('<cword>').' words'<CR>
-nnoremap <silent> <space>S  :exe 'CocList -A --normal grep '.expand('<cword>').''<CR>
+let g:UltiSnipsSnippetDirectories=["UltiSnips", $HOME.'/.vim/MySnippets']
 
 
 " Plugin: vim-airline {{{2

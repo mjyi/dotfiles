@@ -105,5 +105,9 @@ zinit light tj/git-extras
 
 ## End
 
+if command -v pyenv 1>/dev/null 2>&1; 
+then  
+    eval "$(pyenv init -)"
+fi
 eval "$(starship init zsh)"
 ### End of Zinit's installer chunk

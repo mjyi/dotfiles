@@ -1,0 +1,18 @@
+# Snippets for XinYun's Project
+
+priority -50
+
+snippet tablename "TableName()" b
+func (g *${1:type}) TableName() string {
+	return ${0:""}
+}
+endsnippet
+
+snippet frombody "FromUploadBody" b
+func (data *${1:type}) FromUploadBody(body UploadBody) error {
+	err := mapstructure.Decode(body.Data, data)
+    data.Bid = body.Bid
+	data.EventTime = body.EventTime
+	return err
+}
+endsnippet
