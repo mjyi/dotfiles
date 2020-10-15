@@ -35,9 +35,9 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-sleuth'
 if has('nvim') || has('patch-8.0.902')
-  Plug 'mhinz/vim-signify'
+    Plug 'mhinz/vim-signify'
 else
-  Plug 'mhinz/vim-signify', { 'branch': 'legacy' }
+    Plug 'mhinz/vim-signify', { 'branch': 'legacy' }
 endif
 Plug 'mhinz/vim-startify'
 
@@ -67,13 +67,13 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
 Plug 'tweekmonster/startuptime.vim'
 
 function! BuildYCM(info)
-  " info is a dictionary with 3 fields
-  " - name:   name of the plugin
-  " - status: 'installed', 'updated', or 'unchanged'
-  " - force:  set on PlugInstall! or PlugUpdate!
-  if a:info.status == 'installed' || a:info.force
-    !./install.py
-  endif
+    " info is a dictionary with 3 fields
+    " - name:   name of the plugin
+    " - status: 'installed', 'updated', or 'unchanged'
+    " - force:  set on PlugInstall! or PlugUpdate!
+    if a:info.status == 'installed' || a:info.force
+        !./install.py
+    endif
 endfunction
 
 Plug 'ycm-core/YouCompleteMe', { 'do': function('BuildYCM') }
@@ -126,9 +126,10 @@ set autoread
 set backspace     =indent,eol,start
 set clipboard     =unnamed
 set complete     -=i
-set completeopt  +=noselect
-set completeopt  -=preview
+" set completeopt  +=noselect
 " set completeopt=menu,menuone
+set completeopt=longest,menu
+
 set cpoptions    -=e
 set diffopt      +=vertical,foldcolumn:0,indent-heuristic,algorithm:patience
 set fileformats   =unix,dos,mac
@@ -534,14 +535,20 @@ let g:go_highlight_methods = 1
 " let g:go_highlight_operators = 1
 let g:go_highlight_structs = 1
 
+let g:go_fmt_command = 'goreturns'
 
-" Plugin: YouCompleteMe & Snippets
+
+" Plugin: YouCompleteMe & Snippets {{{2
 let g:ycm_global_ycm_extra_conf='~/.ycm_extra_conf.py'
 let g:ycm_confirm_extra_conf=0
 let g:ycm_use_clangd = 0
 
 let g:ycm_add_preview_to_completeopt=0
 let g:ycm_max_num_candidates=50
+
+let g:ycm_gopls_binary_path = "gopls"
+let g:ycm_gopls_args = ['-remote=auto']
+
 
 let g:UltiSnipsExpandTrigger="<C-j>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
@@ -553,21 +560,24 @@ let g:ycm_key_list_stop_completion = ['<C-y>']
 let g:UltiSnipsSnippetDirectories=["UltiSnips", $HOME.'/.vim/MySnippets']
 
 
+nnoremap <silent>gd :YcmCompleter GoToDeclaration<CR>
+nnoremap <silent>gr :YcmCompleter GoToReferences<CR>
+nnoremap <silent>gc :YcmCompleter GetDoc<CR>
+
+" Plugin: clap-vim {{{2
+nnoremap <leader>cc :Clap <CR>
+nnoremap <leader>cf :Clap files <CR>
+nnoremap <leader>cb :Clap buffers<CR>
+nnoremap <leader>cg :Clap grep<CR>
+
+
 " Plugin: vim-airline {{{2
 let g:airline_theme = 'forest_night'
 let g:airline_powerline_fonts = 1
 
 let g:airline#extensions#tabline#enabled = 1           " enable airline tabline
-let g:airline#extensions#tabline#show_close_button = 0 " remove 'X' at the end of the tabline
-let g:airline#extensions#tabline#tabs_label = ''       " can put text here like BUFFERS to denote buffers (I clear it so nothing is shown)
-let g:airline#extensions#tabline#buffers_label = ''    " can put text here like TABS to denote tabs (I clear it so nothing is shown)
-let g:airline#extensions#tabline#fnamemod = ':t'       " disable file paths in the tab
-let g:airline#extensions#tabline#show_tab_count = 0    " dont show tab numbers on the right
-let g:airline#extensions#tabline#show_buffers = 0      " dont show buffers in the tabline
-let g:airline#extensions#tabline#tab_min_count = 2     " minimum of 2 tabs needed to display the tabline
-let g:airline#extensions#tabline#show_splits = 0       " disables the buffer name that displays on the right of the tabline
-let g:airline#extensions#tabline#show_tab_nr = 0       " disable tab numbers
-let g:airline#extensions#tabline#show_tab_type = 0     " disables the weird ornage arrow on the tabline
+let g:airline#extensions#tabline#formatter = 'default'
+let g:airline#extensions#tabline#buffer_nr_show = 1
 
 " }}}1
 
