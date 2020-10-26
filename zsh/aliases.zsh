@@ -2,7 +2,7 @@
 alias reload!='RELOAD=1 source ~/.zshrc'
 
 # use nvim, but don't make me think about it
-alias vim="nvim"
+# alias vim="nvim"
 
 # Filesystem aliases
 alias c="clear"

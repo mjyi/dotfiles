@@ -61,7 +61,7 @@ Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'Chiel92/vim-autoformat'
 Plug 'vim-pandoc/vim-pandoc'
 Plug 'vim-pandoc/vim-pandoc-syntax'
-Plug 'terryma/vim-multiple-cursors'
+" Plug 'terryma/vim-multiple-cursors'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
 
 Plug 'tweekmonster/startuptime.vim'
@@ -127,8 +127,8 @@ set backspace     =indent,eol,start
 set clipboard     =unnamed
 set complete     -=i
 " set completeopt  +=noselect
-" set completeopt=menu,menuone
-set completeopt=longest,menu
+set completeopt=menu,menuone
+" set completeopt=longest,menu
 
 set cpoptions    -=e
 set diffopt      +=vertical,foldcolumn:0,indent-heuristic,algorithm:patience
@@ -228,6 +228,17 @@ set t_Co=256 " Explicitly tell vim that the terminal supports 256 colors
 set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
             \,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor
             \,sm:block-blinkwait175-blinkoff150-blinkon175
+
+
+if empty($TMUX)
+  let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+  let &t_SR = "\<Esc>]50;CursorShape=2\x7"
+  let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+else
+  let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
+  let &t_SR = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=2\x7\<Esc>\\"
+  let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+endif
 
 if &term =~ '256color'
     " disable background color erase
@@ -369,8 +380,10 @@ command! Rm call functions#Delete()
 command! RM call functions#Delete() <Bar> q!
 
 " ColorScheme {{{1
-let g:forest_night_enable_italic = 1
+let g:forest_night_enable_italic = 0
 let g:forest_night_disable_italic_comment = 1
+let g:forest_night_diagnostic_line_highlight = 1
+
 colorscheme forest-night
 
 " Statusline {{{1
@@ -559,10 +572,14 @@ let g:ycm_key_list_stop_completion = ['<C-y>']
 
 let g:UltiSnipsSnippetDirectories=["UltiSnips", $HOME.'/.vim/MySnippets']
 
+let g:ycm_show_diagnostics_ui = 1
+
 
 nnoremap <silent>gd :YcmCompleter GoToDeclaration<CR>
 nnoremap <silent>gr :YcmCompleter GoToReferences<CR>
-nnoremap <silent>gc :YcmCompleter GetDoc<CR>
+
+" nnoremap <silent>gt :YcmCompleter GetDoc<CR>
+
 
 " Plugin: clap-vim {{{2
 nnoremap <leader>cc :Clap <CR>
@@ -578,6 +595,10 @@ let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1           " enable airline tabline
 let g:airline#extensions#tabline#formatter = 'default'
 let g:airline#extensions#tabline#buffer_nr_show = 1
+
+" Enable syntasticlet g:airline#extensions#ycm#enabled = 1
+let g:airline#extensions#ycm#error_symbol = 'E:'
+let g:airline#extensions#ycm#warning_symbol = 'W:'
 
 " }}}1
 
