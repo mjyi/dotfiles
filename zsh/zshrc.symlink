@@ -30,8 +30,8 @@ compinit
 
 for config ($ZSH/**/*completion.sh) source $config
 
-export EDITOR='nvim'
-export GIT_EDITOR='nvim'
+export EDITOR='vim'
+export GIT_EDITOR='vim'
 
 export PATH=/usr/local/bin:$PATH
 

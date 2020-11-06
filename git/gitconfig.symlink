@@ -147,6 +147,7 @@
     pager = less -FXRS -x2
     editor = vim
     whitespace = cr-at-eol
+	quotepath = false
 [rerere]
     enabled = true
 [grep]
