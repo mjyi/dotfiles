@@ -3,7 +3,8 @@
 set -g default-command "${SHELL}"
 # tmux display things in 256 colors
 # set -g default-terminal "tmux-256color-italic"
-set -g default-terminal screen-256color
+# set -g default-terminal screen-256color
+set -g default-terminal "xterm-256color"
 set -as terminal-overrides ',xterm*:Tc:sitm=\E[3m'
 
 set -g mouse on
@@ -102,3 +103,4 @@ bind C-v run "tmux set-buffer $(reattach-to-user-namespace pbpaste); tmux paste-
 ##############################
 
 source ~/.dotfiles/tmux/base16.sh
+

@@ -12,9 +12,7 @@ fi
 
 # source all .zsh files inside of the zsh/ directory
 source "$ZSH/utils.zsh"
-# source "$ZSH/prompt.zsh"
 source "$ZSH/aliases.zsh"
-# source "$ZSH/colors.zsh"
 source "$ZSH/completion.zsh"
 source "$ZSH/config.zsh"
 source "$ZSH/functions.zsh"
@@ -33,15 +31,9 @@ for config ($ZSH/**/*completion.sh) source $config
 export EDITOR='vim'
 export GIT_EDITOR='vim'
 
-export PATH=/usr/local/bin:$PATH
-
-# add /usr/local/sbin
-if [[ -d /usr/local/sbin ]]; then
-    export PATH=/usr/local/sbin:$PATH
-fi
 
 # add brew-installed grep
-export PATH="/usr/local/opt/grep/libexec/gnubin:$PATH"
+# export PATH="/usr/local/opt/grep/libexec/gnubin:$PATH"
 
 # adding path directory for custom scripts
 export PATH=$DOTFILES/bin:$PATH
@@ -55,6 +47,10 @@ fi
 export RIPGREP_CONFIG_PATH="$HOME/.rgrc"
 
 export TERM=xterm-256color
+
+# disable Homebrew auto update 
+export HOMEBREW_NO_AUTO_UPDATE=1
+
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 # export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow -g "!{.git,node_modules}/*" 2> /dev/null'
@@ -105,9 +101,5 @@ zinit light tj/git-extras
 
 ## End
 
-if command -v pyenv 1>/dev/null 2>&1; 
-then  
-    eval "$(pyenv init -)"
-fi
 eval "$(starship init zsh)"
 ### End of Zinit's installer chunk

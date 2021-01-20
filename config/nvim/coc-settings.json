@@ -1,14 +1,6 @@
 {
     "languageserver": {
-        "golang": {
-            "command": "gopls",
-            "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
-            "filetypes": ["go"],
-            "initializationOptions": {
-                "usePlaceholders": true
-            }
-        },
-        "ccls": {
+       "ccls": {
             "command": "ccls",
             "filetypes": ["c", "cpp", "objc", "objcpp"],
             "rootPatterns": [".ccls", "compile_commands.json"],
@@ -54,5 +46,8 @@
     },
     "python.linting.pylintEnabled": false,
     "python.linting.flake8Enabled": true,
-    "rust-analyzer.serverPath": "~/.cargo/bin/rust-analyzer"
+    "rust-analyzer.server.path": "~/.cargo/bin/rust-analyzer",
+    "go.goplsPath":"/Users/mervin/go/bin/gopls",
+    "go.goplsArgs": ["-remote=auto"],
+    "coc.preferences.colorSupport": false
 }

@@ -1,7 +1,7 @@
 # gitconfig
 [user]
 	name = June
-	email = liumy.f@outlook.com
+	email = liumy.f@foxmail.com
 [github]
 	user = mjyi
 [alias]
@@ -174,3 +174,5 @@
 	trustExitCode = true
 [commit]
 	template = /Users/mervin/.stCommitMsg
+[hub]
+	protocol = https
