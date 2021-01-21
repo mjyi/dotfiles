@@ -10,7 +10,6 @@ if !filereadable(expand('~/.vim/autoload/plug.vim'))
     execute '!curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 endif
 
-
 filetype indent plugin on
 if !exists('g:syntax_on')
     syntax enable
@@ -100,8 +99,6 @@ else
 endif
 
 set cmdheight=1
-
-
 
 " better navigation
 set cursorline
@@ -230,7 +227,6 @@ set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
             \,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor
             \,sm:block-blinkwait175-blinkoff150-blinkon175
 
-
 if empty($TMUX)
   let &t_SI = "\<Esc>]50;CursorShape=1\x7"
   let &t_SR = "\<Esc>]50;CursorShape=2\x7"
@@ -254,7 +250,6 @@ if (has("termguicolors"))
     endif
     set termguicolors
 endif
-
 
 " Mappings {{{1
 let mapleader = ','
@@ -340,7 +335,6 @@ onoremap <silent> il :<c-u>normal! g_v^<cr>
 vnoremap <silent> al :<c-u>normal! $v0<cr>
 onoremap <silent> al :<c-u>normal! $v0<cr>
 
-
 " Autocmd {{{1
 augroup vimrc
     if has('nvim')
@@ -386,7 +380,6 @@ let g:forest_night_disable_italic_comment = 1
 let g:forest_night_diagnostic_line_highlight = 1
 colorscheme forest-night
 
-
 " Statusline {{{1
 function! s:statusline_expr()
     let mod = "%{&modified ? '[+] ' : !&modifiable ? '[x] ' : ''}"
@@ -406,13 +399,10 @@ let &statusline = s:statusline_expr()
 function! MyFiletype()
   return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
 endfunction
-  
+
 function! MyFileformat()
   return winwidth(0) > 70 ? ('' . WebDevIconsGetFileFormatSymbol()) : ''
 endfunction
-
-
-
 
 " Plugin {{{1
 " Plugin: exception {{{2
@@ -424,10 +414,8 @@ let g:netrw_list_hide = ',\(^\|\s\s\)\zs\.\S\+'
 let g:netrw_winsize=20
 let g:netrw_liststyle=3
 
-
 " Plugin: vim-bbye {{{2
 nnoremap <leader>q :Bdelete<cr>
-
 
 " Plugin: vim-startify {{{2
 nnoremap <leader>st :Startify<cr>
@@ -474,7 +462,6 @@ let g:tagbar_autoclose = 0
 let g:tagbar_autofocus = 1
 let g:tagbar_compact   = 1
 
-
 " Plugin Devicons {{{2
 let g:WebDevIconsOS = 'Darwin'
 let g:WebDevIconsUnicodeDecorateFolderNodes = 1
@@ -489,7 +476,6 @@ let NERDTreeNodeDelimiter = "\u263a" " smiley face
 
 let g:NERDTreeStatusline = 'NERD'
 
-
 " Toggle NERDTree
 function! ToggleNerdTree()
     if @% != "" && @% !~ "Startify" && (!exists("g:NERDTree") || (g:NERDTree.ExistsForTab() && !g:NERDTree.IsOpen()))
@@ -500,7 +486,6 @@ function! ToggleNerdTree()
 endfunction
 " toggle nerd tree
 nmap <silent> <leader>k :call ToggleNerdTree()<cr>
-
 
 " Plugin: vim-easy-align {{{2
 xmap ga <Plug>(EasyAlign)
@@ -541,17 +526,14 @@ endfunction
 
 noremap <silent><expr> <Space>/ incsearch#go(<SID>config_easyfuzzymotion())
 
-
 " Plugin: vim-autoformat {{{2
 noremap <F8> :Autoformat<CR>
-
 
 " Plugin: vim-pandoc {{{2
 " let g:pandoc#spell#enabled = 0
 " augroup pandoc_syntax
 "     au! BufNewFile,BufFilePre,BufRead *.md set filetype=markdown.pandoc
 " augroup END
-
 
 " Plugin: vim-go {{{2
 let g:go_highlight_function_calls = 1
@@ -566,7 +548,6 @@ let g:go_highlight_methods = 1
 let g:go_highlight_structs = 1
 
 let g:go_fmt_command = 'goimports'
-
 
 " Plugin: coc.nvim
 
@@ -602,12 +583,10 @@ nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
-
 " autocmd BufWritePre *.go :silent call CocAction('runCommand', 'editor.action.organizeImport')
 autocmd FileType go nmap gtj :CocCommand go.tags.add json<cr>
 autocmd FileType go nmap gty :CocCommand go.tags.add yaml<cr>
 autocmd FileType go nmap gtx :CocCommand go.tags.clear<cr>
-
 
 " Plugin: clap-vim {{{2
 nnoremap <leader>cc :Clap <CR>
@@ -615,6 +594,6 @@ nnoremap <leader>cf :Clap files <CR>
 nnoremap <leader>cb :Clap buffers<CR>
 nnoremap <leader>cg :Clap grep<CR>
 
-
 " }}}1
+
 
