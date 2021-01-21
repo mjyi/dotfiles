@@ -392,14 +392,26 @@ function! s:statusline_expr()
     let mod = "%{&modified ? '[+] ' : !&modifiable ? '[x] ' : ''}"
     let ro  = "%{&readonly ? ' ' : ''}"
     let ft  = "%{len(&filetype) ? '['.&filetype.'] ' : ''}"
+    let sys = "%{MyFileformat()} "
     let fug = "%{exists('g:loaded_fugitive') ? fugitive#statusline() : ''}"
     let sep = ' %= '
     let pos = ' %-12(%l : %c%V%) '
     let pct = ' %P '
 
-    return '[%n] %f %<'.mod.ro.ft.fug.sep.pos.'%*'.pct
+    return '[%n] %f %<'.mod.ro.fug.sep.sys.ft.pos.'%*'.pct
 endfunction
+
 let &statusline = s:statusline_expr()
+
+function! MyFiletype()
+  return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
+endfunction
+  
+function! MyFileformat()
+  return winwidth(0) > 70 ? ('' . WebDevIconsGetFileFormatSymbol()) : ''
+endfunction
+
+
 
 
 " Plugin {{{1
