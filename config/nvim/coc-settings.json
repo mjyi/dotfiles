@@ -49,5 +49,6 @@
     "rust-analyzer.server.path": "~/.cargo/bin/rust-analyzer",
     "go.goplsPath":"/Users/mervin/go/bin/gopls",
     "go.goplsArgs": ["-remote=auto"],
-    "coc.preferences.colorSupport": false
+    "coc.preferences.colorSupport": false,
+    "coc.source.word.enable":false
 }

@@ -58,13 +58,16 @@ Plug 'haya14busa/incsearch-easymotion.vim'
 " Plug 'sheerun/vim-polyglot'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
-Plug 'Chiel92/vim-autoformat'
-
-Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
+Plug 'cespare/vim-toml'
 
 Plug 'tweekmonster/startuptime.vim'
 
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+Plug 'ycm-core/YouCompleteMe'
+
+
+
 
 call plug#end()
 
@@ -527,13 +530,8 @@ endfunction
 noremap <silent><expr> <Space>/ incsearch#go(<SID>config_easyfuzzymotion())
 
 " Plugin: vim-autoformat {{{2
-noremap <F8> :Autoformat<CR>
+" noremap <F8> :Autoformat<CR>
 
-" Plugin: vim-pandoc {{{2
-" let g:pandoc#spell#enabled = 0
-" augroup pandoc_syntax
-"     au! BufNewFile,BufFilePre,BufRead *.md set filetype=markdown.pandoc
-" augroup END
 
 " Plugin: vim-go {{{2
 let g:go_highlight_function_calls = 1
@@ -554,45 +552,87 @@ let g:go_fmt_command = 'goimports'
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
 " other plugin before putting this into your config.
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+" inoremap <silent><expr> <TAB>
+"       \ pumvisible() ? "\<C-n>" :
+"       \ <SID>check_back_space() ? "\<TAB>" :
+"       \ coc#refresh()
+" inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
+" function! s:check_back_space() abort
+"   let col = col('.') - 1
+"   return !col || getline('.')[col - 1]  =~# '\s'
+" endfunction
 
-" Use <c-space> to trigger completion.
-if has('nvim')
-  inoremap <silent><expr> <c-space> coc#refresh()
-else
-  inoremap <silent><expr> <c-@> coc#refresh()
-endif
+" " Use <c-space> to trigger completion.
+" if has('nvim')
+"   inoremap <silent><expr> <c-space> coc#refresh()
+" else
+"   inoremap <silent><expr> <c-@> coc#refresh()
+" endif
 
-" Make <CR> auto-select the first completion item and notify coc.nvim to
-" format on enter, <cr> could be remapped by other vim plugin
-inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
-                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+" " Make <CR> auto-select the first completion item and notify coc.nvim to
+" " format on enter, <cr> could be remapped by other vim plugin
+" inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+"                               \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
-" GoTo code navigation.
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
+" " GoTo code navigation.
+" nmap <silent> gd <Plug>(coc-definition)
+" nmap <silent> gy <Plug>(coc-type-definition)
+" nmap <silent> gi <Plug>(coc-implementation)
+" nmap <silent> gr <Plug>(coc-references)
 
-" autocmd BufWritePre *.go :silent call CocAction('runCommand', 'editor.action.organizeImport')
-autocmd FileType go nmap gtj :CocCommand go.tags.add json<cr>
-autocmd FileType go nmap gty :CocCommand go.tags.add yaml<cr>
-autocmd FileType go nmap gtx :CocCommand go.tags.clear<cr>
+" " autocmd BufWritePre *.go :silent call CocAction('runCommand', 'editor.action.organizeImport')
+" autocmd FileType go nmap gtj :CocCommand go.tags.add json<cr>
+" autocmd FileType go nmap gty :CocCommand go.tags.add yaml<cr>
+" autocmd FileType go nmap gtx :CocCommand go.tags.clear<cr>
+
+" command! -nargs=0 Prettier :CocCommand prettier.formatFile
+
 
 " Plugin: clap-vim {{{2
 nnoremap <leader>cc :Clap <CR>
 nnoremap <leader>cf :Clap files <CR>
 nnoremap <leader>cb :Clap buffers<CR>
 nnoremap <leader>cg :Clap grep<CR>
+
+
+
+" Plugin: YouCompleteMe & Snippets {{{2
+let g:ycm_global_ycm_extra_conf='~/.ycm_extra_conf.py'
+let g:ycm_confirm_extra_conf=0
+let g:ycm_use_clangd = 0
+
+let g:ycm_add_preview_to_completeopt=0
+let g:ycm_max_num_candidates=50
+
+let g:ycm_gopls_binary_path = "gopls"
+let g:ycm_gopls_args = ['-remote=auto']
+
+let g:ycm_rust_toolchain_root = $HOME.'/.rustup/toolchains/stable-x86_64-apple-darwin'
+
+
+let g:UltiSnipsExpandTrigger="<C-j>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+let g:ycm_key_invoke_completion = '<C-Space>'
+let g:ycm_key_list_stop_completion = ['<C-y>']
+
+let g:UltiSnipsSnippetDirectories=["UltiSnips", $HOME.'/.vim/MySnippets']
+
+let g:ycm_show_diagnostics_ui = 1
+
+
+nnoremap <silent>gd :YcmCompleter GoToDeclaration<CR>
+nnoremap <silent>gr :YcmCompleter GoToReferences<CR>
+
+" nnoremap <silent>gt :YcmCompleter GetDoc<CR>
+
+
+
+
+
+
 
 " }}}1
 
