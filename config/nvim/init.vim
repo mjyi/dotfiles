@@ -65,8 +65,7 @@ Plug 'tweekmonster/startuptime.vim'
 " Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 Plug 'ycm-core/YouCompleteMe'
-
-
+Plug 'SirVer/ultisnips'
 
 
 call plug#end()
@@ -621,7 +620,6 @@ let g:ycm_key_list_stop_completion = ['<C-y>']
 let g:UltiSnipsSnippetDirectories=["UltiSnips", $HOME.'/.vim/MySnippets']
 
 let g:ycm_show_diagnostics_ui = 1
-
 
 nnoremap <silent>gd :YcmCompleter GoToDeclaration<CR>
 nnoremap <silent>gr :YcmCompleter GoToReferences<CR>
