@@ -54,18 +54,20 @@ Plug 'haya14busa/incsearch.vim'
 Plug 'haya14busa/incsearch-fuzzy.vim'
 Plug 'haya14busa/incsearch-easymotion.vim'
 
-" Plug 'AndrewRadev/tagalong.vim', {'for': 'html'}
-" Plug 'sheerun/vim-polyglot'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
 Plug 'cespare/vim-toml'
 
 Plug 'tweekmonster/startuptime.vim'
 
-" Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
 Plug 'ycm-core/YouCompleteMe'
 Plug 'SirVer/ultisnips'
+
+Plug 'google/vim-maktaba'
+Plug 'google/vim-codefmt'
+" Also add Glaive, which is used to configure codefmt's maktaba flags. See
+" `:help :Glaive` for usage.
+Plug 'google/vim-glaive'
 
 
 call plug#end()
@@ -528,9 +530,6 @@ endfunction
 
 noremap <silent><expr> <Space>/ incsearch#go(<SID>config_easyfuzzymotion())
 
-" Plugin: vim-autoformat {{{2
-" noremap <F8> :Autoformat<CR>
-
 
 " Plugin: vim-go {{{2
 let g:go_highlight_function_calls = 1
@@ -608,7 +607,7 @@ let g:ycm_gopls_binary_path = "gopls"
 let g:ycm_gopls_args = ['-remote=auto']
 
 let g:ycm_rust_toolchain_root = $HOME.'/.rustup/toolchains/stable-x86_64-apple-darwin'
-
+" let g:ycm_rust_toolchain_root = $HOME.'/.cargo/'
 
 let g:UltiSnipsExpandTrigger="<C-j>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
@@ -621,14 +620,32 @@ let g:UltiSnipsSnippetDirectories=["UltiSnips", $HOME.'/.vim/MySnippets']
 
 let g:ycm_show_diagnostics_ui = 1
 
+let g:ycm_language_server =
+    \ [
+    \   {
+    \     'name': 'sourcekit-lsp',
+    \     'cmdline': ['sourcekit-lsp'],
+    \     'filetypes': [ 'swift' ]
+    \   }
+    \ ]
+
 nnoremap <silent>gd :YcmCompleter GoToDeclaration<CR>
 nnoremap <silent>gr :YcmCompleter GoToReferences<CR>
 
 " nnoremap <silent>gt :YcmCompleter GetDoc<CR>
 
 
-
-
+" Plugin: Autoformatting {{{2
+" augroup autoformat_settings
+  " autocmd FileType bzl AutoFormatBuffer buildifier
+  " autocmd FileType c,cpp,proto,javascript,arduino AutoFormatBuffer clang-format
+  " autocmd FileType go AutoFormatBuffer gofmt
+  " autocmd FileType html,css,sass,scss,less,json AutoFormatBuffer js-beautify
+  " autocmd FileType java AutoFormatBuffer google-java-format
+  " autocmd FileType python AutoFormatBuffer yapf
+  " Alternative: autocmd FileType python AutoFormatBuffer autopep8
+  " autocmd FileType rust AutoFormatBuffer rustfmt
+augroup END
 
 
 
