@@ -26,8 +26,6 @@ source "$ZSH/env.zsh"
 autoload -U compinit add-zsh-hook
 compinit
 
-for config ($ZSH/**/*completion.sh) source $config
-
 export EDITOR='vim'
 export GIT_EDITOR='vim'
 

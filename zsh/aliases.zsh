@@ -86,3 +86,6 @@ alias lt='ls -T'
 # alias la='ls -a'
 # alias lla='ls -la'
 # alias lt='ls --tree'
+
+
+alias gc='glint c'

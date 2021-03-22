@@ -69,6 +69,7 @@ Plug 'google/vim-codefmt'
 " `:help :Glaive` for usage.
 Plug 'google/vim-glaive'
 
+Plug 'nathanaelkane/vim-indent-guides'
 
 call plug#end()
 
@@ -412,11 +413,11 @@ endfunction
 " Plugin: exception {{{2
 nnoremap <silent><leader>E :call exception#trace()<cr>
 
-" Plugin: netrw {{{2
-let g:netrw_chgwin = 2
-let g:netrw_list_hide = ',\(^\|\s\s\)\zs\.\S\+'
-let g:netrw_winsize=20
-let g:netrw_liststyle=3
+" Plugin: nathanaelkane/vim-indent-guides
+" indent guides shortcut
+let g:indent_guides_guide_size = 1
+map <silent><F7>  <leader>ig
+
 
 " Plugin: vim-bbye {{{2
 nnoremap <leader>q :Bdelete<cr>
@@ -545,54 +546,12 @@ let g:go_highlight_structs = 1
 
 let g:go_fmt_command = 'goimports'
 
-" Plugin: coc.nvim
-
-" Use tab for trigger completion with characters ahead and navigate.
-" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
-" other plugin before putting this into your config.
-" inoremap <silent><expr> <TAB>
-"       \ pumvisible() ? "\<C-n>" :
-"       \ <SID>check_back_space() ? "\<TAB>" :
-"       \ coc#refresh()
-" inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-" function! s:check_back_space() abort
-"   let col = col('.') - 1
-"   return !col || getline('.')[col - 1]  =~# '\s'
-" endfunction
-
-" " Use <c-space> to trigger completion.
-" if has('nvim')
-"   inoremap <silent><expr> <c-space> coc#refresh()
-" else
-"   inoremap <silent><expr> <c-@> coc#refresh()
-" endif
-
-" " Make <CR> auto-select the first completion item and notify coc.nvim to
-" " format on enter, <cr> could be remapped by other vim plugin
-" inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
-"                               \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-
-" " GoTo code navigation.
-" nmap <silent> gd <Plug>(coc-definition)
-" nmap <silent> gy <Plug>(coc-type-definition)
-" nmap <silent> gi <Plug>(coc-implementation)
-" nmap <silent> gr <Plug>(coc-references)
-
-" " autocmd BufWritePre *.go :silent call CocAction('runCommand', 'editor.action.organizeImport')
-" autocmd FileType go nmap gtj :CocCommand go.tags.add json<cr>
-" autocmd FileType go nmap gty :CocCommand go.tags.add yaml<cr>
-" autocmd FileType go nmap gtx :CocCommand go.tags.clear<cr>
-
-" command! -nargs=0 Prettier :CocCommand prettier.formatFile
-
 
 " Plugin: clap-vim {{{2
 nnoremap <leader>cc :Clap <CR>
 nnoremap <leader>cf :Clap files <CR>
 nnoremap <leader>cb :Clap buffers<CR>
 nnoremap <leader>cg :Clap grep<CR>
-
 
 
 " Plugin: YouCompleteMe & Snippets {{{2
@@ -645,7 +604,7 @@ nnoremap <silent>gr :YcmCompleter GoToReferences<CR>
   " autocmd FileType python AutoFormatBuffer yapf
   " Alternative: autocmd FileType python AutoFormatBuffer autopep8
   " autocmd FileType rust AutoFormatBuffer rustfmt
-augroup END
+" augroup END
 
 
 
