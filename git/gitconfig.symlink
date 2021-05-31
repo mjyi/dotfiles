@@ -1,9 +1,9 @@
 # gitconfig
 [user]
-	name = June
+	name = mjy_
 	email = liumy.f@foxmail.com
 [github]
-	user = mjyi
+	user = roninro
 [alias]
     # list all aliases
     la = "!git config -l | grep alias | cut -c 7-"

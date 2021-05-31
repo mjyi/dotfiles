@@ -20,7 +20,7 @@ endif
 call functions#PlugLoad()
 call plug#begin('~/.config/nvim/plugged')
 
-Plug 'sainnhe/forest-night'
+Plug 'sainnhe/everforest'
 
 Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] }
 Plug 'Xuyuanp/nerdtree-git-plugin'
@@ -29,11 +29,11 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'jiangmiao/auto-pairs'
 
 Plug 'tpope/vim-commentary'
-
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-sleuth'
+
 if has('nvim') || has('patch-8.0.902')
     Plug 'mhinz/vim-signify'
 else
@@ -45,8 +45,11 @@ Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' }
 
 Plug 'junegunn/gv.vim', {'on': 'GV'}
 Plug 'junegunn/vim-easy-align'
+
 Plug 'rhysd/committia.vim'
+
 Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
+
 Plug 'moll/vim-bbye'
 
 Plug 'easymotion/vim-easymotion'
@@ -60,8 +63,9 @@ Plug 'cespare/vim-toml'
 
 Plug 'tweekmonster/startuptime.vim'
 
-Plug 'ycm-core/YouCompleteMe'
-Plug 'SirVer/ultisnips'
+Plug 'ycm-core/YouCompleteMe', { 'do': './install.py' }
+
+Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 
 Plug 'google/vim-maktaba'
 Plug 'google/vim-codefmt'
@@ -380,10 +384,9 @@ command! Rm call functions#Delete()
 command! RM call functions#Delete() <Bar> q!
 
 " ColorScheme {{{1
-let g:forest_night_enable_italic = 0
-let g:forest_night_disable_italic_comment = 1
-let g:forest_night_diagnostic_line_highlight = 1
-colorscheme forest-night
+let g:everforest_background = 'soft'
+let g:everforest_disable_italic_comment = 1
+colorscheme everforest
 
 " Statusline {{{1
 function! s:statusline_expr()
@@ -466,6 +469,42 @@ let g:tagbar_width     = 40
 let g:tagbar_autoclose = 0
 let g:tagbar_autofocus = 1
 let g:tagbar_compact   = 1
+
+let g:tagbar_type_rust = {
+  \ 'ctagsbin' : '/usr/local/bin/ctags',
+  \ 'ctagstype' : 'rust',
+  \ 'kinds' : [
+      \ 'n:modules',
+      \ 's:structures:1',
+      \ 'i:interfaces',
+      \ 'c:implementations',
+      \ 'f:functions:1',
+      \ 'g:enumerations:1',
+      \ 't:type aliases:1:0',
+      \ 'v:constants:1:0',
+      \ 'M:macros:1',
+      \ 'm:fields:1:0',
+      \ 'e:enum variants:1:0',
+      \ 'P:methods:1',
+  \ ],
+  \ 'sro': '::',
+  \ 'kind2scope' : {
+      \ 'n': 'module',
+      \ 's': 'struct',
+      \ 'i': 'interface',
+      \ 'c': 'implementation',
+      \ 'f': 'function',
+      \ 'g': 'enum',
+      \ 't': 'typedef',
+      \ 'v': 'variable',
+      \ 'M': 'macro',
+      \ 'm': 'field',
+      \ 'e': 'enumerator',
+      \ 'P': 'method',
+  \ },
+\ }
+
+
 
 " Plugin Devicons {{{2
 let g:WebDevIconsOS = 'Darwin'
@@ -575,7 +614,7 @@ let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 let g:ycm_key_invoke_completion = '<C-Space>'
 let g:ycm_key_list_stop_completion = ['<C-y>']
 
-let g:UltiSnipsSnippetDirectories=["UltiSnips", $HOME.'/.vim/MySnippets']
+" let g:UltiSnipsSnippetDirectories=["UltiSnips", $HOME.'/.vim/MySnippets']
 
 let g:ycm_show_diagnostics_ui = 1
 
@@ -587,6 +626,20 @@ let g:ycm_language_server =
     \     'filetypes': [ 'swift' ]
     \   }
     \ ]
+
+
+let g:ycm_filetype_blacklist = {
+      \ 'tagbar': 1,
+      \ 'notes': 1,
+      \ 'nerdtree':1,
+      \ 'netrw': 1,
+      \ 'unite': 1,
+      \ 'vimwiki': 1,
+      \ 'pandoc': 1,
+      \ 'infolog': 1,
+      \ 'leaderf': 1,
+      \ 'mail': 1
+      \}
 
 nnoremap <silent>gd :YcmCompleter GoToDeclaration<CR>
 nnoremap <silent>gr :YcmCompleter GoToReferences<CR>
@@ -607,7 +660,5 @@ nnoremap <silent>gr :YcmCompleter GoToReferences<CR>
 " augroup END
 
 
-
 " }}}1
-
 
